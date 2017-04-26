@@ -8,5 +8,5 @@ import au.edu.utscic.tap.httpServer.Server
   *
   */
 object Application extends App {
-  Server.startServer("localhost",8080)
+  Server.startServer("0.0.0.0",8080)
 }
