@@ -5,6 +5,8 @@ import java.nio.file.Path
 import akka.NotUsed
 import akka.stream.scaladsl.{Flow, Keep, Sink, Source}
 import au.edu.utscic.tap.TapStreamContext
+import au.edu.utscic.tap.io.Local
+import au.edu.utscic.tap.io.Local.CorpusFile
 
 import scala.collection.immutable
 import scala.concurrent.Future
@@ -50,18 +52,18 @@ case class TextPipeline[A,B](iterable:immutable.Iterable[A],flow:Flow[A,B,NotUse
 //  //def apply[T](source:immutable.Iterable[Future[String]],flow:Flow[String,T,NotUsed],outputIsSingle:Boolean) = new TextPipeline(Source[Future[String]](source).mapAsync(1)(identity),flow,outputIsSingle)
 //}
 
-case class CorpusPipeline[A,B](source:Source[Path,A],flow:Flow[Path,Future[String],B]) extends Pipeline {
+case class CorpusPipeline[A,B](source:Source[Path,A],flow:Flow[Path,Future[Local.CorpusFile],B]) extends Pipeline {
   import TapStreamContext._
-  val sink = Sink.seq[Future[String]].mapMaterializedValue(_.map(Future.sequence(_)).flatten)
+  val sink = Sink.seq[Future[Local.CorpusFile]].mapMaterializedValue(_.map(Future.sequence(_)).flatten)
   val pipeline =  source.via(flow).toMat(sink)(Keep.right)
   def run = pipeline.run()
 }
 
-case class CorpusPipelineIter[A,B](source:Source[Path,A],flow:Flow[Path,Future[String],B]) extends Pipeline {
+case class CorpusPipelineIter[A,B](source:Source[Path,A],flow:Flow[Path,Future[CorpusFile],B]) extends Pipeline {
   import TapStreamContext._
-  val sink = Sink.seq[Future[String]]
+  val sink = Sink.seq[Future[CorpusFile]]
   val pipeline =  source.via(flow).toMat(sink)(Keep.right)
-  def run = pipeline.run()
+  def run = pipeline.run().map(Future.sequence(_)).flatten
 }
 
 //case class Pipeline[A,B,C](source:Source[A,B],flow:Flow[A,C,NotUsed],singleOutput:Boolean) {

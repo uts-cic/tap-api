@@ -5,6 +5,7 @@ import akka.stream.scaladsl.{Flow, Keep, RunnableGraph, Sink, Source}
 import akka.util.ByteString
 import au.edu.utscic.tap.TapStreamContext
 import au.edu.utscic.tap.io.Local
+import au.edu.utscic.tap.io.Local.CorpusFile
 import au.edu.utscic.tap.message.Exception.UnknownAnalysisType
 import au.edu.utscic.tap.message.Json
 import au.edu.utscic.tap.pipelines._
@@ -26,12 +27,14 @@ object CorpusAnalysisHandler {
     TapStreamContext.log.debug("Analysing '{}' corpus: {}", msg.analysisType, msg.corpus)
     val pipeline = msg.analysisType match {
       case "tfidf" => {
-        val corpus:Future[Seq[String]] = CorpusPipelineIter(Local.directorySource("/"+msg.corpus),Local.fileFlow).run.map(Future.sequence(_)).flatten
+        val corpus:Future[Seq[CorpusFile]] = CorpusPipelineIter(Local.directorySource("/"+msg.corpus),Local.fileFlow).run
         corpus.map { c =>
-          TfIdf.calculateNonWeighted(c.toList,true,0.02)
-          //CorpusTextPipeline(Source[String](c.toList),Tfidf.pipeline,false).run
+          val contentsList = c.toList.map(_.contents)
+          val filenamesList = c.toList.map(_.name)
+          val tfidf = TfIdf.calculateNonWeighted(contentsList,true,0.02)
+          (filenamesList zip tfidf).map(e => CorpusTfIdfResults(e._1,e._2.size,0.02,false,e._2))
         }
-      }  //s"Analysing ${msg.corpus} for ${msg.analysisType}"
+      }
       case "file" => CorpusPipeline(Local.directorySource("/"+msg.corpus),Local.fileFlow).run
       //Local.pipeline.toMat(Sink.seq[Future[String]])(Keep.right) //.via(Local.pipeline).toMat(Sink.seq[String])(Keep.right)
       //case "topic" => s"Analysing ${msg.corpus} for ${msg.analysisType}" //Pipeline(sourceFrom(msg.byteStr),Clean.pipeline.via(Structure.pipeline))
@@ -45,3 +48,4 @@ object CorpusAnalysisHandler {
   }
 }
 
+case class CorpusTfIdfResults(name:String, selectionCount:Int, selectionSize:Double, weighted:Boolean, results:Map[String,Double])

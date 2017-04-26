@@ -28,18 +28,12 @@ object Local {
     Source(files)
   }
 
-  val fileFlow:Flow[Path,Future[String],NotUsed] = Flow[Path].map(fileSource(_).toMat(Sink.head[ByteString])(Keep.right).run().map(_.utf8String))
+  case class CorpusFile(name:String,contents:String)
+
+  val fileFlow:Flow[Path,Future[CorpusFile],NotUsed] = Flow[Path].map( path =>fileSource(path).toMat(Sink.head[ByteString])(Keep.right).run().map(contents => CorpusFile(path.getFileName.toString,contents.utf8String)))
 
 
   def fileSource(path:Path):Source[ByteString,Future[IOResult]] = FileIO.fromPath(path)
 
- val pipeline = directorySource("/").via(fileFlow) //.f mapConcat(f => Await.result(f,1 second))
-
-    //implicit val formats: Formats = DefaultFormats
-    //implicit val jacksonSerialization: Serialization = jackson.Serialization
-    //val fileName = "/affect-lexicon.json"
-    //lazy val stream : InputStream = getClass.getResourceAsStream(fileName)
-    //lazy val src = scala.io.Source.fromInputStream( stream )
-    //def load:List[Affect] = org.json4s.jackson.Serialization.read[List[Affect]](src.reader())
-
+ val pipeline = directorySource("/").via(fileFlow)
 }
