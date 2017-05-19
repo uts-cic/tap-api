@@ -75,3 +75,6 @@ src/main/scala-2.12/
 src/test/java/
 src/test/resources/
 src/test/scala-2.12/
+/src/main/resources/
+!/.gitignore
+!/build.sbt
