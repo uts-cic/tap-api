@@ -78,3 +78,5 @@ src/test/scala-2.12/
 /src/main/resources/
 !/.gitignore
 !/build.sbt
+!/project/build.properties
+!/project/plugins.sbt
