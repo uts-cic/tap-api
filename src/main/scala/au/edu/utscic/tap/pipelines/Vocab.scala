@@ -14,14 +14,12 @@ import scala.concurrent.Future
 object Vocab {
 
   val document:Flow[TapDocument,List[TapSection],NotUsed] = Flow[TapDocument].map(_.document)
-  val sectionsVocab:Flow[List[TapSection],List[Map[String,Int]],NotUsed] = Flow[List[TapSection]].map(_.map(_.section.flatMap(_.tags.lemmas).groupBy((word:String) => word).mapValues(_.length)))
+
+  val sectionsVocab:Flow[List[TapSection],List[Map[String,Int]],NotUsed] = Flow[List[TapSection]].map(_.map(_.section.flatMap(_.tokens).groupBy((word:String) => word).mapValues(_.length)))
   val documentVocab = Flow[List[Map[String,Int]]].fold(Map[String,Int]())(_ ++ _.flatten)
 
   val vocabByCount = Flow[Map[String,Int]].map(_.toList.groupBy(_._2).map(wc => wc._1 -> wc._2.map(_._1)).toSeq.reverse).map(l=> ListMap(l:_*))
 
   val pipeline = document.via(sectionsVocab).via(documentVocab).via(vocabByCount)
-
-
-
 
 }

@@ -4,6 +4,7 @@ import akka.NotUsed
 import akka.stream.scaladsl.{Flow, Keep, RunnableGraph, Sink, Source}
 import akka.util.ByteString
 import au.edu.utscic.tap.TapStreamContext
+import au.edu.utscic.tap.data.CorpusTfIdfResults
 import au.edu.utscic.tap.io.Local
 import au.edu.utscic.tap.io.Local.CorpusFile
 import au.edu.utscic.tap.message.Exception.UnknownAnalysisType
@@ -48,4 +49,3 @@ object CorpusAnalysisHandler {
   }
 }
 
-case class CorpusTfIdfResults(name:String, selectionCount:Int, selectionSize:Double, weighted:Boolean, results:Map[String,Double])

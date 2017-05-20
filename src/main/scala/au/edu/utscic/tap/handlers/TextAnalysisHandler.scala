@@ -1,9 +1,10 @@
 package au.edu.utscic.tap.handlers
 
-import au.edu.utscic.tap.{TapStreamContext, TapUtil}
+import au.edu.utscic.tap.TapStreamContext
 import au.edu.utscic.tap.message.Exception.UnknownAnalysisType
 import au.edu.utscic.tap.message.Json
 import au.edu.utscic.tap.pipelines._
+import au.edu.utscic.tap.util.StringUtil
 
 import scala.concurrent.Future
 
@@ -13,7 +14,7 @@ import scala.concurrent.Future
 object TextAnalysisHandler {
 
   def analyse(msg:Json.ByteStringAnalysis):Future[Json.Results] = {
-    TapStreamContext.log.debug("Analysing '{}' text: {}",msg.analysisType, TapUtil.shorten(msg.byteStr.utf8String))
+    TapStreamContext.log.debug("Analysing '{}' text: {}",msg.analysisType, StringUtil.shorten(msg.byteStr.utf8String))
     val pipeline = msg.analysisType match {
       case "clean" => TextPipeline(msg.byteStr,Clean.pipeline,false)
       case "structure" => TextPipeline(msg.byteStr,Clean.pipeline.via(Structure.pipeline))

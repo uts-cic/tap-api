@@ -6,8 +6,8 @@ package au.edu.utscic.tap.data
 
 case class TapDocument(document:List[TapSection])
 
-case class TapSection(section:List[TapSentence])
 
-case class TapSentence(sentence:String,tokens:List[String],tags:TapTags = TapTags())
 
-case class TapTags(lemmas:List[String] = List(),posTags:List[String] = List()) //,nerTags:List[String] = List())
+
+
+ //,nerTags:List[String] = List())

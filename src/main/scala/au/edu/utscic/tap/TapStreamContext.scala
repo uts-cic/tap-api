@@ -15,6 +15,3 @@ object TapStreamContext {
   val log = Logging(system.eventStream,"~")
 }
 
-object TapUtil {
-  def shorten(text:String,num:Int=30) = text.replace("\n"," ").take(num).concat("\u2026")
-}
