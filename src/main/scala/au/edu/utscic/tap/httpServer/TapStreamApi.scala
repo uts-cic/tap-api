@@ -21,7 +21,7 @@ trait TapStreamApi extends GenericApi {
             if (str.isEmpty) complete("Text required for analysis")
             else {
               val analysisType = param.dropChars(1).head.toString
-              println("analysisType - {}",analysisType)
+              //println("analysisType - {}",analysisType)
               val analysisMsg = Json.ByteStringAnalysis(str,analysisType)
               complete(TextAnalysisHandler.analyse(analysisMsg))
             }

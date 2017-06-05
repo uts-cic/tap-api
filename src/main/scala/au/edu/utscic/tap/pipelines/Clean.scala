@@ -23,7 +23,7 @@ object Clean  {
   /* Remove characters that represented control characters */
   val stripControl = Flow[Char].filterNot(c => c =='\u00a4' || c =='\u00af')
 
-  /* Reduce multiple spaces to single spaces, multiple newlines indicate a section */
+  /* Reduce multiple spaces to single spaces, multiple newlines indicate a sentences */
   val reduceWhiteSpace = Flow[Char].fold(""){(s:String,c:Char) =>
       if(c=='\u00b7') { //will end with space
         if(s.endsWith(" ") || s.endsWith("\u00ac")) s
@@ -31,7 +31,7 @@ object Clean  {
         else s + " "
       } else if(c=='\u00ac') { //will end with newline
         if(s.endsWith(" ")) s.dropRight(1) + "\u00ac"
-        else if(s.endsWith("\u00ac")) s.dropRight(1) + "\u00a7" // multiple newlines treated as section break
+        else if(s.endsWith("\u00ac")) s.dropRight(1) + "\u00a7" // multiple newlines treated as sentences break
         else if (s.endsWith("\u00a7")) s
         else s + c
       } else s + c

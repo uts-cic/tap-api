@@ -14,7 +14,7 @@ import scala.concurrent.Future
 object TextAnalysisHandler {
 
   def analyse(msg:Json.ByteStringAnalysis):Future[Json.Results] = {
-    TapStreamContext.log.debug("Analysing '{}' text: {}",msg.analysisType, StringUtil.shorten(msg.byteStr.utf8String))
+    TapStreamContext.log.debug("Analysing '{}' text: {}", StringUtil.shorten(msg.byteStr.utf8String))
     val pipeline = msg.analysisType match {
       case "clean" => TextPipeline(msg.byteStr,Clean.pipeline,false)
       case "structure" => TextPipeline(msg.byteStr,Clean.pipeline.via(Structure.pipeline))
