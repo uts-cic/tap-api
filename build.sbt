@@ -1,5 +1,5 @@
 name := "tap-api"
-version := "2.0.1"
+version := "2.0.2"
 scalaVersion := "2.12.2"
 organization := "au.edu.utscic"
 
@@ -12,9 +12,9 @@ enablePlugins(JavaAppPackaging)
 
 
 //Scala library versions
-val akkaVersion = "2.5.1"
-val akkaStreamVersion = "2.5.1"
-val akkaHttpVersion = "10.0.6"
+val akkaVersion = "2.5.3"
+val akkaStreamVersion = "2.5.3"
+val akkaHttpVersion = "10.0.8"
 val akkaHttpJson4sVersion = "1.16.1"
 val json4sVersion = "3.5.2"
 val slickVersion = "3.2.0"

@@ -1,8 +1,11 @@
 package au.edu.utscic.tap.pipelines
 
-import akka.stream.scaladsl.{Flow}
+import akka.NotUsed
+import akka.stream.scaladsl.Flow
 
-/** A cleaning pipeline
+/**
+  * Clean
+  * A cleaning pipeline
   * Creates a runnable graph for the input ByteString
   * Replaces invisible characters with visible symbols
   *
@@ -44,7 +47,7 @@ object Clean  {
   val splitSections = Flow[String].mapConcat(_.split("\u00a7").toList.filterNot(_.isEmpty))
 
 
-  val pipeline = makeVisible
+  val pipeline:Flow[Byte,String,NotUsed] = makeVisible
     .via(stripControl)
     .via(reduceWhiteSpace)
     .via(newlineToSpace)
