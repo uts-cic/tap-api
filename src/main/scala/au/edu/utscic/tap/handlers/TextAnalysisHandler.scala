@@ -1,6 +1,7 @@
 package au.edu.utscic.tap.handlers
 
 import au.edu.utscic.tap.TapStreamContext
+import au.edu.utscic.tap.analysis.rhetorical.Athanor
 import au.edu.utscic.tap.message.Exception.UnknownAnalysisType
 import au.edu.utscic.tap.message.Json
 import au.edu.utscic.tap.pipelines._
@@ -17,10 +18,11 @@ object TextAnalysisHandler {
     TapStreamContext.log.debug("Analysing '{}' text: {}", StringUtil.shorten(msg.byteStr.utf8String))
     val utf8text = msg.byteStr.utf8String
     val pipeline = msg.analysisType match {
-      case "visible" => TextPipeline(utf8text,Cleaning.Pipeline.revealInvisible)
-      case "clean" => TextPipeline(utf8text,Cleaning.Pipeline.fullCleanUtf)
-      case "lightclean" => TextPipeline(utf8text,Cleaning.Pipeline.lengthPreserveClean)
-      case "heavyclean" => TextPipeline(utf8text,Cleaning.Pipeline.fullClean127)
+      case "visible" => Cleaning.Pipeline.revealInvisible
+      case "clean" => Cleaning.Pipeline.fullCleanUtf
+      case "lightclean" => Cleaning.Pipeline.lengthPreserveClean
+      case "heavyclean" => Cleaning.Pipeline.fullClean127
+      case "moves" => Cleaning.Pipeline.fullCleanUtf.via(Rhetorical.Pipeline.sentenceMoves)
       //case "structure" => TextPipeline(msg.byteStr,Cleaning.pipeline.via(Structure.pipeline))
       //case "vocab" => TextPipeline(msg.byteStr,Cleaning.pipeline.via(Structure.pipeline).via(Vocab.pipeline))
       //case "complexity" => getAnalysis[AllComplexity]("complexityAggregator",msg,sender)
@@ -36,6 +38,7 @@ object TextAnalysisHandler {
         throw UnknownAnalysisType("Unknown analysis type")
       }
     }
-    Json.formatResults(pipeline.run,"Text Analysis Results")
+    val pipelineResults = TextPipeline(utf8text,pipeline).run
+    Json.formatResults(pipelineResults,"Text Analysis Results")
   }
 }

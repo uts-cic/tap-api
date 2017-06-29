@@ -1,0 +1,667 @@
+//Reflective concept dependency
+
+If ( ^_(#1[rc],#2[rc]) ) _[rcdep=+](#1,#2) .  
+
+// implicit:
+
+//It was exciting to be given a scenario to think on your feet.
+//xcomp(JJ[exciting],VBN[given/give])
+//nsubj(JJ[exciting],PRP[It/it])
+//auxpass(VBN[given/give],VB[be])
+
+ 
+If ( ^xcomp(#1[stance],#2[POS:"VBN"]) && nsubj(#1[Verb],#3[lemma:"it"]) && auxpass(#2,#4) && ! ) xcomp[SubjectStance=+,rcdep=+](#1,#2).
+
+
+
+//this experience as subject -> subject+analysis
+//This experience really honed my ability to work within a team .
+//nsubj(VBD[honed/hone],NN[experience])
+//det(NN[experience],DT[This/this])
+
+
+If ( det(#1[analysis],#2[lemma:"this"]) && ^nsubj(#3[analysis,Verb],#1) && ! && syn(#4[subject]) ) nsubj[SubjectAanalysis=+](#3,#1) .
+
+If ( det(#1[analysis],#2[lemma:"this"]) && ^nsubj(#3[stance,Verb],#1) && ! && syn(#4[subject]) ) nsubj[SubjectAnalysis=+,SubjectStance=+,rcdep=+](#3,#1) .
+
+//emphasis -> stance
+
+//The actual outcome from this event was that I was able to complete the task entrusted on me but not within the time period required as the unaccounted external factors obstructed my ability to work effectively .
+//det(NN[outcome],DT[The/the])
+//nsubj(VBD[was/be],NN[outcome])
+//mark(JJ[able],IN[that])
+//ccomp(VBD[was/be],JJ[able])
+
+If ( det(#1,#2) && ^nsubj(#3[lemma:"be"],#1) && mark(#4,#5) && ccomp(#3,#4) && ! && syn(#6[subject]) ) nsubj[SubjectStance=+,rcdep=+](#3,#1) .
+
+
+//This quote really resided with me.
+//nmod(VBD[resided/reside],PRP[me/I])
+//advmod(VBD[resided/reside],RB[really])
+
+If ( _(#1[analysis],#2[subject]) && ^advmod(#1,#3[stance]) && ! ) advmod[SubjectStance=+,rcdep=+](#1,#3) .
+
+//I noted down what she said about it, but [my feeling is that] it hurts to acknowledge it.
+//xcomp(VBZ[hurts/hurt],VB[acknowledge])
+//nsubj['Norm':'+'](VB[acknowledge],PRP[it])
+//mark(VB[acknowledge],TO[to])
+
+If ( xcomp(#1,#2[POS:"VB"]) && ^nsubj(#2[Verb],#3[lemma:"it"]) && mark(#2,#4[POS:"TO"]) && ! && syn(#5[subject]) ) nsubj[SubjectStance=+,rcdep=+](#2,#3) .
+
+//Then, Pam was very sympathetic and even today I got into the poor me, how hard it is to be an adult student stuff again.
+//advmod(VBZ[is/be],JJ[hard])
+//nsubj(VBZ[is/be],PRP[it])
+
+If ( ^advmod(#1[lemma:"be"],#2[stance]) && nsubj(#1[Verb],#3[lemma:"it"]) && ! && syn(#4[subject]) ) advmod[SubjectStance=+,rcdep=+](#1,#2) .
+
+//Sadly what this means is that if numbers aren't looking good each quarter cost cutting exercises are implemented.
+//advmod(WP[what],RB[Sadly/sadly])
+
+If ( ^advmod(#1,#2[start,stance,POS:"RB"]) ) advmod[SubjectStance=+,rcdep=+](#1,#2) .
+
+//Most importantly, an issue I face with communicating is that I believe that I am explaining more than I am.
+//advmod(RB[importantly],RBS[Most/most])
+
+If ( ^advmod(#1[stance,POS:"RB"],#2[start,POS:"RBS"]) && syn(#3[subject]) && ! ) advmod[SubjectStance=+,rcdep=+](#1,#2) .
+
+// This statement however was powerful because it makes a leader accountable for their actions and the impact it has on people.
+//cop(JJ[powerful],VBD[was/be])
+//nsubj(JJ[powerful],NN[statement])
+
+If ( cop(#1[stance],#2[lemma:"be"]) && ^nsubj(#1[Verb],#3[analysis]) && ! && syn(#4[subject]) ) nsubj[SubjectStance=+,SubjectAnalysis=+,rcdep=+](#1,#3) .
+
+//I have recently been involved in a change management process and associated communications strategy at work , that would not have been successful without the engagement of employees of all levels in strategies that allowed them to have a say such as surveys , focus groups , direct contact with the CEO through meetings and the CEO circuit in which she randomly goes out to the sites and works with the staff at their level for a day .
+//cop(JJ[successful],VBN[been/be])
+//acl['relcl':'+'](NN[work],JJ[successful])
+//neg(JJ[successful],RB[not])
+
+If ( cop(#1[stance],#2) && ^acl[relcl](#3[analysis],#1) && ! && syn(#4[subject]) ) acl[SubjectStance=+,rcdep=+](#3,#1) .
+
+//It was really intriguing to hear about stories, opinions and cultural norms, and recognising the ramifications of the past in contemporary environments.
+//dep(JJ[intriguing],VB[hear])
+//nsubj(JJ[intriguing],PRP[It/it])
+//mark(VB[hear],TO[to])
+
+If ( ^nsubj(#1[stance,Verb],#2[lemma:"it"]) && dep(#1,#3) && mark(#3,#4[POS:"TO"]) && ! ) nsubj[SubjectStance=+,rcdep=+](#1,#2) .
+
+If ( ^nsubj(#1[stance,contrast,Verb],#2[lemma:"it"]) && dep(#1,#3) && mark(#3,#4[POS:"TO"]) && ! ) nsubj[ContrastStance=+,rcdep=+](#1,#2) .
+
+
+//The main reason this situation got so out of hand was because half the team was on training and I was the sole person responsible for answering the engineers ' online requests .
+//nsubj['rcdep':'+'](VBD[was/be],NN[reason])
+//det(NN[reason],DT[The/the])
+
+If ( ^nsubj(#1[Verb],#2[link]) && det(#2,#3[lemma:"the"]) && ! ) nsubj[SubjectAnalysis=+,rcdep=+](#1,#2).
+
+//Perhaps that's simplistic, but these are the things that define what I do and how I feel about my profession .
+//nsubj(JJ[simplistic],DT[that])
+//cop(JJ[simplistic],VBZ['s/be])
+
+
+If ( ^nsubj(#1[stance,Verb],#2[POS:"DT"]) && cop(#1,#3) && syn(#4[subject]) ) nsubj[SubjectStance=+,rcdep=+](#1,#2) .
+
+//There was nothing exciting about the meeting it was like a casual conversation between people, it felt real and for that reason I found it inspirational.
+//xcomp(VBD[felt/feel],JJ[real])
+//nsubj(VBD[felt/feel],PRP[it])
+
+If ( ^nsubj(#1[stance,Verb],#2[lemma:it]) && xcomp(#1,#3) && syn(#4[subject]) ) nsubj[SubjectStance=+,rcdep=+](#1,#2) .
+
+
+// During the previous fortnight leading up to my journal entry, I have been given the task of completing more complex AutoCAD drawings for a particular project due which is much more difficult to the previous drafting work I have done on previous projects.
+//cop(JJ[difficult],VBZ[is/be])
+
+If (^cop(#1[stance],#2[lemma:"be",POS~:"VB"]) && syn(#3[subject]) && ! ) cop[SubjectStance=+,rcdep=+](#1,#2) .
+
+//Exception:
+//Natalia touched on a point during the first lecture, that reputable corporations have made decisions based on whether it 's legal not whether it is ethical.
+//cop['rcdep':'+','stance':'+','SubjectStance':'+'](JJ[ethical],VBZ[is/be])
+//mark(JJ[ethical],IN[whether])
+
+If ( ^cop[SubjectStance](#1[stance],#2) && mark(#1,#3[wh]) && !) cop[rcdp=~,SubjectStance=~](#1,#2).
+
+
+//////////////////////// EXCEPTIONS \\\\\\\\\\\\\\\\\\\\\\
+
+//I like the explanations and the statements.
+//conj['rcdep':'+'](NNS[explanations/explanation],NNS[statements/statement])
+
+If ( ^conj(#1,#2) ) conj[rcdep=~](#1,#2) .
+
+////////////////////////// Marking concept dependencies \\\\\\\\\\\\\\\\\\\\\\\
+
+If ( ^_[rcdep](#1[temporality],#2) ) _[temporality=+](#1,#2) .
+If ( ^_[rcdep](#1,#2[temporality]) ) _[temporality=+](#1,#2) .
+
+If ( ^_[rcdep](#1[futuretemp],#2) ) _[futuretemp=+](#1,#2) .
+If ( ^_[rcdep](#1,#2[futuretemp]) ) _[futuretemp=+](#1,#2) .
+
+If ( ^_[rcdep](#1[analysis],#2) ) _[analysis=+](#1,#2) .
+If ( ^_[rcdep](#1,#2[analysis]) ) _[analysis=+](#1,#2) .
+
+If ( ^_[rcdep](#1[stance],#2) ) _[stance=+](#1,#2) .
+If ( ^_[rcdep](#1,#2[stance]) ) _[stance=+](#1,#2) .
+
+If ( ^_[rcdep](#1[contrast],#2) ) _[contrast=+](#1,#2) .
+If ( ^_[rcdep](#1,#2[contrast]) ) _[contrast=+](#1,#2) .
+
+If ( ^_[rcdep](#1[link],#2 ) ) _[link=+](#1,#2) .
+If ( ^_[rcdep](#1,#2[link] ) ) _[link=+](#1,#2) .
+
+If ( ^_[rcdep](#1[shift],#2) ) _[shift=+](#1,#2) .
+If ( ^_[rcdep](#1,#2[shift]) ) _[shift=+](#1,#2) .
+
+If ( ^_[rcdep](#1[subject],#2) ) _[subject=+](#1,#2) .
+If ( ^_[rcdep](#1,#2[subject]) ) _[subject=+](#1,#2) .
+
+If ( ^_[rcdep](#1[othersubject],#2) ) _[othersubject=+](#1,#2) .
+If ( ^_[rcdep](#1,#2[othersubject]) ) _[othersubject=+](#1,#2) .
+
+//////////////// (OTHER)SUBJECT + ANALYSIS \\\\\\\\\\\\\\\\\\\\
+
+// subject of the analysis: subject or othersubject
+
+If ( ^_[rcdep](#1[subject],#2[analysis]) ) _[SubjectAnalysis=+](#1,#2).
+
+If ( ^_[rcdep](#1[analysis],#2[subject]) ) _[SubjectAnalysis=+](#1,#2).
+
+If ( ^nsubj(#1[analysis,Verb],#2[othersubject,course:"~"]) ) nsubj[OtherSubjectAnalysis=+](#1,#2).
+
+//their perspectives
+
+If ( ^det(#1[analysis],#2[othersubject,course:"~"]) ) det[OtherSubjectAnalysis=+](#1,#2).
+
+//If ( ^nmod(#1[analysis],#2[othersubject,course:"~"]) ) nmod[OtherSubjectAnalysis=+](#1,#2).
+
+
+
+
+// exception 
+
+//////////////// (OTHER)SUBJECT + STANCE \\\\\\\\\\\\\\\\\\\\
+
+// subject of the stance: subject or othersubject
+
+// missing the condition: & ~MAIN[passive](#1)
+
+If ( ^_[rcdep](#1[subject],#2[stance]) ) _[SubjectStance=+](#1,#2).
+
+If ( ^_[rcdep](#1[stance],#2[subject]) ) _[SubjectStance=+](#1,#2).
+
+If ( ^nsubj(#1[stance,Verb],#2[othersubject,course:"~"]) ) nsubj[OtherSubjectStance=+](#1,#2).
+
+If (^ nmod(#1[stance,Noun],#2[othersubject,course:"~"]) ) nmod[OtherSubjectStance=+](#1,#2).
+
+///////////////// CONTRAST + ANALYSIS \\\\\\\\\\\\\\\\\\\\\
+
+
+If ( ^_[rcdep](#1[contrast],#2[analysis]) ) _[ContrastAnalysis=+](#1,#2).
+
+If ( ^_[rcdep](#1[analysis],#2[contrast]) ) _[ContrastAnalysis=+](#1,#2).
+
+
+///////////////// CONTRAST + STANCE \\\\\\\\\\\\\\\\\\\\\
+
+
+If ( ^_[rcdep](#1[contrast],#2[stance]) ) _[ContrastStance=+](#1,#2).
+
+If ( ^_[rcdep](#1[stance],#2[contrast]) ) _[ContrastStance=+](#1,#2).
+
+
+//////////////// SUBJECT + CONTRAST \\\\\\\\\\\\\\\\\\\\
+
+If ( ^_[rcdep](#1[subject],#2[contrast]) ) _[SubjectContrast=+](#1,#2).
+
+If ( ^_[rcdep](#1[contrast],#2[subject]) ) _[SubjectContrast=+](#1,#2).
+
+
+///////////////// SHIFT + ANALYSIS \\\\\\\\\\\\\\\\\\\\\
+
+If ( ^_[rcdep](#1[shift],#2[analysis]) ) _[ShiftAnalysis=+](#1,#2).
+
+If ( ^_[rcdep](#1[analysis],#2[shift]) ) _[ShiftAnalysis=+](#1,#2).
+
+If ( ^_[rcdep](#1[analysis,shift],#2) ) _[ShiftAnalysis=+](#1,#2).
+
+If ( ^_[rcdep](#1,#2[analysis,shift]) ) _[ShiftAnalysis=+](#1,#2).
+
+///////////////// SHIFT + STANCE \\\\\\\\\\\\\\\\\\\\\
+
+If ( ^_[rcdep](#1[shift],#2[stance]) ) _[ShiftStance=+](#1,#2).
+
+If ( ^_[rcdep](#1[stance],#2[shift]) ) _[ShiftStance=+](#1,#2).
+
+///////////////// STANCE + ANALYSIS \\\\\\\\\\\\\\\\\\\\\
+
+If ( ^_[rcdep](#1[stance],#2[analysis]) ) _[StanceAnalysis=+](#1,#2).
+
+If ( ^_[rcdep](#1[analysis],#2[stance]) ) _[StanceAnalysis=+](#1,#2).
+
+///////////////// LINK + ANALYSIS \\\\\\\\\\\\\\\\\\\\\
+
+If ( ^_[rcdep](#1[link],#2[analysis]) ) _[LinkAnalysis=+](#1,#2).
+
+If ( ^_[rcdep](#1[analysis],#2[link]) ) _[LinkAnalysis=+](#1,#2).
+
+///////////////// LINK + STANCE \\\\\\\\\\\\\\\\\\\\\
+
+If ( ^_[rcdep](#1[link],#2[stance]) ) _[LinkStance=+](#1,#2).
+
+If ( ^_[rcdep](#1[stance],#2[link]) ) _[LinkStance=+](#1,#2).
+
+///////////////// SUBJECT + TEMPORALITY \\\\\\\\\\\\\\\\\\\\\
+
+If ( ^_[rcdep](#1[subject],#2[temporality]) ) _[SubjectTemporality=+](#1,#2).
+
+If ( ^_[rcdep](#1[temporality],#2[subject]) ) _[SubjectTemporality=+](#1,#2).
+
+
+
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////// Marking sentences \\\\\\\\\\\\\\\\\\\\\\\\\\\
+////////////////////////////////////////////////////////////////////////////
+
+If ( ^D_ROOT(#1) && _[SubjectAnalysis](#2,#3) && ! ) D_ROOT[SubjectAnalysis=+](#1) .
+
+If ( ^D_ROOT(#1) && _[SubjectStance](#2,#3) && ! ) D_ROOT[SubjectStance=+](#1) .
+
+If ( ^D_ROOT(#1) && _[ContrastStance](#2,#3) && ! ) D_ROOT[ContrastStance=+](#1) .
+
+If ( ^D_ROOT(#1) && _[OtherSubjectAnalysis](#2,#3) && ! ) D_ROOT[OtherSubjectAnalysis=+](#1) .
+
+If ( ^D_ROOT(#1) && _[OtherSubjectStance](#2,#3) && ! ) D_ROOT[OtherSubjectStance=+](#1) .
+
+If ( ^D_ROOT(#1) && _[ContrastAnalysis](#2,#3) && ! ) D_ROOT[ContrastAnalysis=+,contrast=+](#1) .
+
+If ( ^D_ROOT(#1) && _[ContrastStance](#2,#3) && ! ) D_ROOT[ContrastStance=+,contrast=+](#1) .
+
+If ( ^D_ROOT(#1) && _[SubjectContrast](#2,#3) && ! ) D_ROOT[SubjectContrast=+,contrast=+](#1) .
+
+If ( ^D_ROOT(#1) && _[ShiftAnalysis](#2,#3) && ! ) D_ROOT[ShiftAnalysis=+](#1) .
+
+If ( ^D_ROOT(#1) && _[ShiftStance](#2,#3) && ! ) D_ROOT[ShiftStance=+](#1) .
+
+If ( ^D_ROOT(#1) && _[StanceAnalysis](#2,#3) && ! ) D_ROOT[StanceAnalysis=+](#1) .
+
+If ( ^D_ROOT(#1) && _[LinkAnalysis](#2,#3) && ! ) D_ROOT[LinkAnalysis=+](#1) .
+
+If ( ^D_ROOT(#1) && _[LinkStance](#2,#3) && ! ) D_ROOT[LinkStance=+](#1) .
+
+If ( ^D_ROOT(#1) && _[SubjectTemporality](#2,#3) && ! ) D_ROOT[SubjectTemporality=+](#1) .
+
+////////////
+
+If ( ^D_ROOT(#1) && syn(#2[futuretemp]) && ! ) D_ROOT[futuretemp=+](#1) .
+
+If ( ^D_ROOT(#1) && syn(#2[futuretemp:~,temporality]) && ! ) D_ROOT[temporality=+](#1) .
+
+If ( ^D_ROOT(#1) && syn(#2[link]) && ! ) D_ROOT[link=+](#1) .
+
+If ( ^D_ROOT(#1) && _[shift](#2,#3) && ! ) D_ROOT[shift=+](#1) .
+
+
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////// Marking reflecive moves \\\\\\\\\\\\\\\\\\\\\
+////////////////////////////////////////////////////////////////////////////
+
+//////////////
+//context-1//
+////////////
+
+// Thoughts: What does it mean for me? Why is it significant? COMPARATIVES CAUSALITY, REFLECTIVE QUESTIONING, DEFINITION (of issues)
+
+// SUBJECT+ANALYSIS_SUBJECT+STANCE
+
+If ( ^D_ROOT[SubjectAnalysis,SubjectStance](#1) ) D_ROOT[context1="+"](#1) .
+
+// SUBJECT+ANALYSIS_STANCE+ANALYSIS_TEMPORALITY
+
+If ( ^D_ROOT[SubjectAnalysis,StanceAnalysis](#1) && syn(#2[temporality]) && ! ) D_ROOT[context1="+",temporality="+"](#1) .
+
+//////////////
+//context-2//
+////////////
+
+
+// Thoughts: What does it mean for me? Why is it significant? COMPARATIVES CAUSALITY, REFLECTIVE QUESTIONING, DEFINITION (of issues)
+
+//SUBJECT+ANALYSIS_SHIFT_TEMPORALITY
+
+If ( ^D_ROOT[SubjectAnalysis](#1) && syn(#2[temporality]) && syn(#3[shift]) && ! ) D_ROOT[context2="+",temporality="+",shift="+"](#1) .
+
+
+If ( ^D_ROOT[SubjectStance](#1) && syn(#2[temporality]) && syn(#3[shift]) && ! ) D_ROOT[context2="+",temporality="+",shift="+"](#1) .
+
+
+If (^D_ROOT[context1](#1) )  D_ROOT[context=+](#1).
+
+If (^D_ROOT[context2](#1) )  D_ROOT[context=+](#1).
+
+
+
+
+///////////////////
+//self-context-1//
+/////////////////
+
+// Feelings: Why do I feel this way? FEELINGS as a measure of expectations, surprise, uncertainty, lack of confidence etc.
+
+//SUBJECT+STANCE_LINK
+
+If ( ^D_ROOT[SubjectStance,link](#1) ) D_ROOT[selfcontext1=+](#1) .
+
+// What does it mean for me?
+
+//SUBJECT+ANALYSIS_LINK
+
+If ( ^D_ROOT[SubjectAnalysis,link](#1) ) D_ROOT[selfcontext1=+](#1) .
+
+///////////////////
+//self-context-2//
+/////////////////
+
+// Feelings: What do these feeling say about me? CAUSALITY: explanations for impressions and feelings
+
+// SUBJECT+STANCE_LINK
+
+If ( ^D_ROOT[SubjectStance,link](#1) ) D_ROOT[selfcontext2=+](#1) .
+
+
+////////////////
+//challenge-1//
+//////////////
+
+//challenge
+
+//challenge-1
+
+// Challenge: How is this a problem? DESCRIPTIVE NARRATIVE. How does this challenge me? CAUSALITY: effect of experience on self
+
+//SUBJECT+CONTRAST_CONTRAST+ANALYSIS/CONTRAST+STANCE; SUBJECT+ANALYSIS/SUBJECT+STANCE_CONTRAST; SUBJECT+CONTRAST_SUBJECT+ANALYSIS
+
+If ( ^D_ROOT[SubjectContrast,ContrastAnalysis](#1) ) D_ROOT[challenge1=+](#1) .
+
+If ( ^D_ROOT[SubjectContrast,ContrastStance](#1) ) D_ROOT[challenge1=+](#1) .
+
+//If ( ^D_ROOT[SubjectAnalysis,Contrast](#1) ) D_ROOT[challenge1=+](#1) .
+
+//If ( ^D_ROOT[SubjectStance,Contrast](#1) ) D_ROOT[challenge1=+](#1) .
+
+If ( ^D_ROOT[SubjectAnalysis,ContrastAnalysis](#1) ) D_ROOT[challenge1=+](#1) .
+
+If ( ^D_ROOT[SubjectAnalysis,ContrastStance](#1) ) D_ROOT[challenge1=+](#1) .
+
+If ( ^D_ROOT[SubjectStance,ContrastAnalysis](#1) ) D_ROOT[challenge1=+](#1) .
+
+If ( ^D_ROOT[SubjectStance,ContrastStance](#1) ) D_ROOT[challenge1=+](#1) .
+
+If ( ^D_ROOT[SubjectAnalysis,ContrastStance](#1) ) D_ROOT[challenge1=+](#1) .
+
+If ( ^D_ROOT[SubjectContrast,SubjectAnalysis](#1) ) D_ROOT[challenge1=+](#1) .
+
+
+
+
+////////////////
+//challenge-2//
+//////////////
+
+//to review!!!!!
+
+//challenge
+//challenge-2
+
+//Self critique: What other ideas could I use to improve myself? CITATION and EVALUATION (appraisal) of ideas
+
+// OTHERSUBJECT+ANALYSIS_SUBJECT+ANALYSIS
+
+If ( ^D_ROOT[SubjectAnalysis,OtherSubjectAnalysis](#1) && syn(#2[subject]) && ! ) D_ROOT[challenge2=+](#1) .
+
+If ( ^D_ROOT[SubjectAnalysis,OtherSubjectStance](#1) && syn(#2[subject]) && ! ) D_ROOT[challenge2=+](#1) .
+
+////////////////
+//challenge-3//
+//////////////
+
+//How is this a problem? DESCRIPTIVE NARRATIVE. How does this challenge me?
+
+//SUBJECT+TEMPORALITY_CONTRAST+ANALYSIS_STANCE+ANALYSIS
+
+// commented in XIP rule
+
+
+If (^D_ROOT[challenge1](#1) )  D_ROOT[challenge=+](#1).
+
+If (^D_ROOT[challenge2](#1) )  D_ROOT[challenge=+](#1).
+
+
+
+/////////////////////
+//self-challenge-2//
+///////////////////
+
+//challenge,link2me
+//self-challenge-2
+// Self-critique: What should I improve? Why do I need to improve? Causality: explain changed belief or approach, new understanding, competence, empowerment
+
+// LINK+ANALYSIS_SUBJECT+ANALYSIS_TEMPORALITY
+
+If ( ^D_ROOT[temporality,LinkAnalysis,SubjectAnalysis](#1) ) D_ROOT[selfchallenge2=+](#1).
+
+/////////////////////
+//self-challenge-3//
+///////////////////
+
+//CHALLENGE_SHIFT/LINK
+
+If ( ^D_ROOT[challenge,shift](#1) ) D_ROOT[selfchallenge3=+](#1).
+
+If ( ^D_ROOT[challenge,link](#1) ) D_ROOT[selfchallenge3=+](#1).
+
+
+
+
+/////////////////////
+//self-challenge-5//
+///////////////////
+
+//SUBJECT+CONTRAST_LINK_SUBJECT+STANCE
+
+If ( ^D_ROOT[SubjectStance,link,SubjectContrast](#1) ) D_ROOT[selfchallenge5=+](#1).
+
+
+
+/////////////
+//change-1//
+///////////
+
+//change
+
+//change-1
+
+// Potential solution: What do others suggest is a way forward? How do others address these challenges? CITATIONS and hedging (could, might)
+
+//OTHERSUBJECT+ANALYSIS_FUTURETEMP
+
+If ( ^D_ROOT[OtherSubjectAnalysis,futuretemp](#1) ) D_ROOT[change1=+](#1).
+
+/////////////
+//change-2// This rule is not necessary
+///////////
+
+// Potential solution: How can I improve? CITATIONS used to present a theory for self improvement. PAST/ NOW contrast to show change, learning, 
+
+//FUTURETEMP_TEMPORALITY
+
+//If ( ^D_ROOT[temporality,futuretemp](#1) && syn(#2[subject]) && ! ) D_ROOT[change2=+](#1).
+
+
+
+/////////////
+//change-3//
+///////////
+
+// Self-critique: What should I improve? Why do I need to improve? Causality: explain changed belief or approach, new understanding, competence, empowerment
+
+
+//FUTURETEMP_SUBJECT+CONTRAST_CONTRAST+ANALYSIS/CONTRAST+STANCE
+
+If ( ^D_ROOT[ContrastAnalysis,SubjectContrast,futuretemp](#1) && syn(#2[subject]) && ! ) D_ROOT[change3=+](#1).
+
+If ( ^D_ROOT[ContrastStance,SubjectContrast,futuretemp](#1) && syn(#2[subject]) && ! ) D_ROOT[change3=+](#1).
+
+If ( ^D_ROOT[contrast,SubjectAnalysis,futuretemp](#1) && syn(#2[subject]) && ! ) D_ROOT[change3=+](#1).
+
+If ( ^D_ROOT[ContrastAnalysis,SubjectAnalysis,futuretemp](#1) && syn(#2[subject]) && ! ) D_ROOT[change3=+](#1).
+
+If ( ^D_ROOT[ContrastStance,SubjectAnalysis,futuretemp](#1) && syn(#2[subject]) && ! ) D_ROOT[change3=+](#1).
+
+If ( ^D_ROOT[ContrastStance,SubjectStance,futuretemp](#1) && syn(#2[subject]) && ! ) D_ROOT[change3=+](#1).
+
+
+If ( ^D_ROOT[ContrastAnalysis,SubjectStance,futuretemp](#1) && syn(#2[subject]) && ! ) D_ROOT[change3=+](#1).
+
+/////////////
+//change-4//
+///////////
+
+// Potential solution: How can I improve? CITATIONS used to present a theory for self improvement. PAST/ NOW contrast to show change, learning, 
+
+//FUTURETEMP_SUBJECT+ANALYSIS/SUBJECT+STANCE
+
+If ( ^D_ROOT[SubjectAnalysis,futuretemp](#1) && syn(#2[subject]) && ! ) D_ROOT[change4=+](#1).
+
+If ( ^D_ROOT[SubjectStance,futuretemp](#1) && syn(#2[subject]) && ! ) D_ROOT[change4=+](#1).
+
+
+If (^D_ROOT[change1](#1) )  D_ROOT[change=+](#1).
+
+If (^D_ROOT[change2](#1) )  D_ROOT[change=+](#1).
+
+If (^D_ROOT[change3](#1) )  D_ROOT[change=+](#1).
+
+If (^D_ROOT[change4](#1) )  D_ROOT[change=+](#1).
+
+/////////////////
+//change-5//
+////////////////
+
+//change, link2me
+
+//self-change-3 //why is this self-change?
+
+// Self-critique: What should I improve? Why do I need to improve? Causality: explain changed belief or approach, new understanding, competence, empowerment
+
+
+//FUTURETEMP_SUBJECT+ANALYSIS/STANCE_CONTRAST
+
+If ( ^D_ROOT[SubjectAnalysis,futuretemp,contrast](#1) ) D_ROOT[change5=+](#1).
+
+If ( ^D_ROOT[SubjectStance,futuretemp,contrast](#1) ) D_ROOT[change5=+](#1).
+
+
+
+//////////////////
+//self-change-1//
+////////////////
+
+// Learning opportunity: What am I going to do about it? In which direction do I head next? How do I want to change? INTENTION and PREDICTION: change likely to lead to certain future benefits. MODALS : will can, hope to
+
+// FUTURETEMP_SHIFT
+
+If ( ^D_ROOT[futuretemp,shift](#1) && syn(#2[subject]) && ! ) D_ROOT[selfchange1=+](#1).
+
+// SUBJECT+ANALYSIS_FUTURETEMP (TO REVIEW: why should this be LINK2ME????)
+
+If ( ^D_ROOT[futuretemp,SubjectAnalysis](#1) && syn(#2[subject]) && ! ) D_ROOT[selfchange1=+](#1).
+
+
+//////////////////
+//self-change-2//
+////////////////
+
+//Challenge: What impact will this have on me and my goals/aspirations? CAUSALITY: Impact on self in context
+
+// FUTURETEMP_LINK_SUBJECT+ANALYSIS/SUBJECT+STANCE
+
+If ( ^D_ROOT[futuretemp,link,SubjectAnalysis](#1) ) D_ROOT[selfchange2=+](#1).
+
+If ( ^D_ROOT[futuretemp,link,SubjectStance](#1) ) D_ROOT[selfchange2=+](#1).
+
+If ( ^D_ROOT[futuretemp,LinkAnalysis,SubjectAnalysis](#1) ) D_ROOT[selfchange2=+](#1).
+
+If ( ^D_ROOT[futuretemp,LinkStance,SubjectStance](#1) ) D_ROOT[selfchange2=+](#1).
+
+If ( ^D_ROOT[futuretemp,LinkStance,SubjectAnalysis](#1) ) D_ROOT[selfchange2=+](#1).
+
+If ( ^D_ROOT[futuretemp,LinkAnalysis,SubjectStance](#1) ) D_ROOT[selfchange2=+](#1).
+
+
+If ( ^D_ROOT[change,link](#1) ) D_ROOT[selfchange2=+](#1).
+
+
+
+
+
+
+//////////////////
+//self-change-5//
+////////////////
+
+//SUBJECT+CONTRAST_LINK_SUBJECT+STANCE  no example!
+
+//If ( ^D_ROOT[SubjectStance,SubjectContrast,link](#1) ) D_ROOT[selfchange5=+](#1).
+
+
+//////////////////////////// FINAL TAGS \\\\\\\\\\\\\\\\\\\\\
+
+If ( ^D_ROOT[context1](#1) ) D_ROOT[context=+](#1) .
+
+If ( ^D_ROOT[context2](#1) ) D_ROOT[context=+](#1) .
+
+If ( ^D_ROOT[selfcontext1](#1) ) D_ROOT[context=+,link2me=+](#1) .
+
+If ( ^D_ROOT[selfcontext2](#1) ) D_ROOT[context=+,link2me=+](#1) .
+
+If ( ^D_ROOT[challenge1](#1) ) D_ROOT[challenge=+](#1) .
+
+If ( ^D_ROOT[challenge2](#1) ) D_ROOT[challenge=+](#1) .
+
+If ( ^D_ROOT[selfchallenge2](#1) ) D_ROOT[challenge=+,link2me=+](#1) .
+
+If ( ^D_ROOT[selfchallenge3](#1) ) D_ROOT[challenge=+,link2me=+](#1) .
+
+If ( ^D_ROOT[selfchallenge4](#1) ) D_ROOT[challenge=+,link2me=+](#1) .
+
+If ( ^D_ROOT[change2](#1) ) D_ROOT[change=+](#1) .
+
+If ( ^D_ROOT[change3](#1) ) D_ROOT[change=+](#1) .
+
+If ( ^D_ROOT[change4](#1) ) D_ROOT[change=+](#1) .
+
+If ( ^D_ROOT[selfchange1](#1) ) D_ROOT[change=+,link2me=+](#1).
+
+If ( ^D_ROOT[selfchange2](#1) ) D_ROOT[change=+,link2me=+](#1).
+
+If ( ^D_ROOT[selfchange3](#1) ) D_ROOT[change=+,link2me=+](#1).
+
+/////////////////////// HIARARCHY \\\\\\\\\\\\\\\\\\\\\\
+
+//It is the highest tag that stays
+
+If ( ^D_ROOT[change=+,challenge](#1) ) D_ROOT[challenge=~](#1).
+
+If ( ^D_ROOT[change=+,context](#1) ) D_ROOT[context=~](#1).
+
+If ( ^D_ROOT[challenge,context](#1) ) D_ROOT[context=~](#1).
+
+
+
+
+
+
+
+
+
+
+
+

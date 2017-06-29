@@ -1,0 +1,776 @@
+//This comes from add-feature_refl.xip
+
+
+////////////////////////// contextual reflection words
+
+
+// I show -> not reflective
+//nsubj(VBP[show],PRP[I])
+
+If ( nsubj(#1[lemma:"show"],#2[subject]) &&  #1[reflection,mentscopubl,publ,ksw]="~" ) ~.
+
+
+//It appeared to me that I wasn't very responsible for my work and I did not show the respects I should have shown for my superior and my job.
+//nmod(VBD[appeared/appear],PRP[me/I])
+
+If ( nmod(#1[lemma:"appear"],#2[subject]) && #1[reflection=+] ) ~.
+
+// realise sg not reflective
+//Through our discussions of our ideas we decided to realise our map in the form of a small diorama of the tunnel that represented these ideas in a three-dimensional way, the construction illustrated in image (b) in Appendix A represents also the manner in which group members worked together to complete each stage.
+//dobj(realise,map)
+
+If ( dobj(#1[lemma:"realise"],#2) &&  #1[reflection=~] ) ~.
+
+If ( dobj(#1[lemma:"realize"],#2) && #1[reflection=~] ) ~.
+
+//look is not mental if it has an nmod with a case
+
+//nmod(VB[look],NN[opportunity])
+//case(NN[opportunity],IN[for])
+
+If ( nmod(#1[lemma:"look"],#2) && case(#2,#3) && #1[mental=~,ksw=~,mentsco=~,mentscopubl=~] ) ~.
+
+// "look at" is mental if it is related to a mentscopubl
+
+If ( nmod(#1[lemma:"look"],#2[mentscopubl]) && case(#2,#3[lemma:"at"]) && #1[mental,ksw,mentsco,mentscopubl]="+" ) ~.
+
+
+//bring to mind
+
+If ( _1(#1[lemma:"bring"],#2[lemma:"mind"]) || _1(#2[lemma:"mind"],#1[lemma:"bring"]) && #1[reflection]="+" ) ~.
+
+// open eyes
+
+If ( _1(#1[lemma:"open"],#2[lemma:"eye"]) || _1(#2[lemma:"eye"],#1[lemma:"open"]) && #1[shift,reflection]="+" && #2[shift,reflection]="+" ) ~.
+
+//It made me further think about people around me who may not deviate from social norms in a very outward way, but may be struggling internally and I may not even notice.
+//xcomp(VBD[made/make],VB[think])
+//nsubj(VB[think],PRP[me/I])
+
+
+If ( xcomp(#1[lemma:"make"],#2) && nsubj(#2,#3[subject]) && #2[shift]="+" ) ~.
+
+
+//It made me wonder does Murdoch now` walk the Code of Ethics talk` or is this considered lip service to keep the public satisfied? 
+//ccomp(VBD[made/make],VB[wonder])
+//nsubj(VB[wonder],PRP[me/I])
+
+If ( ccomp(#1[lemma:"make"],#2) && nsubj(#2,#3[subject]) && #2[shift]="+" ) ~.
+
+
+//I have come to understand that in order to effectively advance women 's rights, we need to galvanize a global women 's movement.
+//nsubj(VBN[come],PRP[I])
+//xcomp(VBN[come],VB[understand])
+
+If ( xcomp(#1[lemma:"come"],#2[reflection]) && nsubj(#1,#3[subject]) && #2[shift]="+") ~.
+
+//From this experience I have learnt that is important to not only be interested in asking questions about equipment, how they work and how to fix them, but also to understand all necessary safety precautions (personal and also in respect to keeping equipment safe).
+//aux['=PresPerf':'+'](VBN[learnt/learn],VBP[have])
+
+If ( aux[PresPerf](#1[lemma:"learn"],#2) && #1[shift]="+" ) ~.
+
+//I gained greater awareness of how passionate Latinos are of their history, and how strongly this influences their current codes and conventions.
+//dobj(gained,awareness)
+
+If ( dobj(#1[incr],#2[reflection]) && #1[shift]="+" ) ~.
+
+// no matter
+//neg(NN[matter],DT[No/no])
+
+If ( neg(#1[lemma:"matter"],#2[lemma:"no"]) && #1[contr]="+" ) ~.
+
+//Being first generation Australian myself, I’ve been able to relate the concept of transculturation to my current situation and identification.
+//nsubj['=Norm':'+'](VB[relate],PRP[I])
+
+If ( nsubj(#1[lemma:relate],#2[subject]) && #1[analysis]="+" ) ~.
+
+//Not only have the theories informed my educational development, but also the issues discovered during the group case study have informed my professional environment.<
+//nmod['poss':'+'](NN[development],PRP$[my])
+
+If ( nmod[poss](#1[lemma:"development"],#2[lemma:"my"]) && #1[analysis]="+" ) ~ .
+
+//This quote really resided with me.
+//nmod(VBD[resided/reside],PRP[me/I])
+//case(PRP[me/I],IN[with])
+
+If (nmod(#1[lemma:reside],#2[lemma:I]) && case(#2,#3[lemma:with]) && #1[analysis]="+" ) ~.
+
+
+
+////////////////////////////// ANALYSIS \\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+If (syn(#1[noun,publ]) && #1[mental="~"]) ~.
+
+If (syn(#1[mental]) && #1[analysis="+"] ) ~.
+
+If (syn(#1[scope]) && #1[analysis="+"] ) ~.
+
+If (syn(#1[reflection]) && #1[analysis="+"] ) ~.
+
+//find
+
+// find is analysis when its dobj is mentsco
+
+If ( dobj(#1[lemma:"find"],#2[mentsco]) && #1[analysis=+] ) ~.
+
+//xcomp(VBD[found/find],JJ[nice])
+//ccomp(VBD[found/find],JJ[nice])
+
+If ( xcomp(#1[lemma:"find"],#2) && #1[analysis]="+" ) ~.
+
+If ( ccomp(#1[lemma:"find"],#2) && #1[analysis]="+" ) ~.
+
+
+
+//I will develop goals for myself during the week so that each week I have learnt a new skill and can comfortably complete the task and take responsibility for the way it unfolds, whether it be positively or whether it results in complaints.
+//dobj(VB[develop],NNS[goals/goal])
+
+If ( dobj(#1[lemma:"develop"],#2[analysis]) && #1[analysis]="+" ) ~.
+
+
+//I have also to point out that one of the most important aspects of my learning experience was the teamwork and collaborative learning .
+//compound['prt':'+'](VB[point],RP[out])
+
+If ( compound['=prt':'+'](#1[lemma:"point"],#2[lemma:"out"]) && #1[analysis]="+" ) ~.
+
+
+////////////////////////////// STANCE \\\\\\\\\\\\\\\\\\\\\\\\\\
+
+// rules that add the feature STANCE in context
+
+//NUCL_PARTICLE(look[stance=+],forward)
+//advmod(VBP[look],RB[forward])
+
+If ( advmod(#1[lemma:"look"],#2[lemma:"forward"] ) && set(#1,"stance") ) ~.
+
+
+// importing STANCE from existing lexicons
+
+
+If (syn(#1[attitude]) && #1[stance="+"] ) ~.
+
+
+If (syn(#1[importance]) && #1[stance="+"] ) ~.
+
+
+If (syn(#1[surprise]) && #1[stance="+"] ) ~.
+
+
+If (syn(#1[sentiment]) && #1[stance="+"] ) ~.
+
+
+If (syn(#1[positivesent]) && #1[stance="+"] ) ~.
+
+
+If ( syn(#1[negativesent]) && #1[stance="+"] ) ~.
+
+//I have a level of accountability to ensure employees felt safe in their working environment, yes it's somewhat a legislative 'duty of care' requirement but for me it was more than that.
+//#1[stance=+]{#2[lemma:more],?}
+//MOD_PRE(was,me)  --------->>>> this dependency is not created in the Stanford Parser
+//MANNER_POST(was,more than)
+//cop(JJR[more],VBD[was/be])
+
+
+//As the work has now been issued to the client for first release, I am keen to see the changes that they will want us to make.
+//cop(JJ[keen],VBP[am/be])
+
+If ( cop(#1[lemma:"keen"],#2[lemma:"be"] ) && set(#1,"stance") && set(#2,"stance") ) ~.
+
+
+//exception:
+//kind of
+//nmod(NN[kind],NN[thing])
+//case(NN[thing],IN[of])
+
+If ( nmod(#1[lemma:"kind"],#2) && case(#2,#3[lemma:"of"]) && #1[stance="~"] ) ~.
+
+
+////////////////////////////// OTHERSUBJECT \\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+If ( syn(#1[lemma:"he"]) && #1[othersubject="+"] ) ~.
+
+If ( syn(#1[lemma:"himself"]) && #1[othersubject="+"] ) ~.
+
+If ( syn(#1[lemma:"she"]) && #1[othersubject="+"] ) ~.
+
+If ( syn(#1[lemma:"herself"]) && #1[othersubject="+"] ) ~.
+
+If ( syn(#1[lemma:"hers"]) && #1[othersubject="+"] ) ~.
+
+If ( syn(#1[lemma:"they"]) && #1[othersubject="+"] ) ~.
+
+If ( syn(#1[lemma:"themselves"]) && #1[othersubject="+"] ) ~.
+
+If ( syn(#1[lemma:"theirs"]) && #1[othersubject="+"] ) ~.
+
+If ( syn(#1[prof]) && #1[othersubject="+"] ) ~.
+
+If ( syn(#1[NER:"PERSON"]) && #1[othersubject="+"] ) ~.
+
+////Working in a professional environment was something I was used to and I believe I was able to maintain a high level of professionalism .
+//professional[c_person=~]
+//amod(NN[environment],JJ[professional])
+
+If ( amod(#2,#1) && p_sibling(#1,#2[Noun]) && #1[c_person="~"] ) ~.
+
+If ( syn(#1[c_person]) && #1[othersubject="+"] ) ~.
+
+If ( syn(#1[Noun,publ]) && #1[othersubject="+"] ) ~.
+
+If ( syn(#1[lemma:"outcome"]) && #1[publ="~",othersubject="~"] ) ~.
+
+If ( syn(#1[noun,course,analysis:"~"]) && #1[othersubject="+"] ) ~.
+
+
+
+//////// context dependent feautres
+
+// see is analysis if it is related to a mentsco or a contr noun or stance
+
+If ( _1(#1[lemma:"see"],#2[mentsco]) || _1(#2[mentsco],#1[lemma:"see"]) && #1[analysis]="+" ) ~.
+
+
+If ( _1(#1[lemma:"see"],#2[Noun,contr]) || _1(#2[Noun,contr],#1[lemma:"see"]) && #1[analysis]="+" ) ~.
+
+If ( _1(#1[lemma:"see"],#2[stance]) || _1(#2[stance],#1[lemma:"see"]) && #1[analysis]="+" ) ~.
+
+
+////////////////////////////// CONTRAST \\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+//RB[n't/not]
+
+If ( syn(#1[lemma:"not"]) && #1[contrast="+"] ) ~.
+
+//propagation of "not"
+//I personally felt that if I did n't participate in what I would consider as not such ethical behavioural then that separated me from being a part of that.
+//nsubj(VB[participate],PRP[I])
+//neg(VB[participate],RB[n't/not])
+
+If ( nsubj(#1[Verb],#2) && neg(#1,#3) && ! && #1[contrast=+] )  ~.
+
+//I expected that I was only responsible for the tasks that I had been trained in however what actually happened was the queue of requests in this online reporting system was far too large, most of the requests I had not been trained how to handle and so the situation got out of hand, I had to send some requests to other members of the team so they could take care of them. 
+//neg(VBN[trained/train],RB[not])
+//nsubjpass(VBN[trained/train],PRP[I])
+
+If ( nsubjpass(#1,#2) && neg(#1,#3) && ! && #1[contrast=+] )  ~.
+
+
+
+If ( syn(#1[Wh,start]) && #1[contrast=+] ) ~.
+
+If ( syn(#1[contr]) && #1[contrast="+"] ) ~.
+
+
+If ( syn(#1[lemma:"?"]) && #1[contrast="+"] ) ~.
+
+
+// lexical:
+// get over
+//case(DT[this],IN[over])
+//nmod(VB[get],DT[this])
+
+If ( nmod(#1[lemma:"get"],#2) && case(#2,#3[lemma:"over"])  && #1[contrast="+"] ) ~.
+
+// I was required
+//nsubjpass(VBN[required/require],PRP[I])
+
+If ( nsubjpass(#1[lemma:"require"],#2[subject]) && #1[contrast="+"] ) ~.
+
+
+
+////////////////////////////// LINK \\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//marks:
+//as
+//because
+//since
+//so
+//I look forward to seeing you since you are nice.
+//mark(JJ[nice],IN[since])
+
+If ( mark(#1,#2[lemma:since,POS:"IN"]) && #2[link="+"] ) ~.
+If ( mark(#1,#2[lemma:so,POS:"IN"]) && #2[link="+"] ) ~.
+If ( mark(#1,#2[lemma:as,POS:"IN"]) && #2[link="+"] ) ~.
+
+If ( syn(#1[lemma:so,start]) && #1[link="+"] ) ~.
+
+If ( mwe(#1[lemma:so],#2[lemma:that]) && #1[link="+"] && #2[link="+"] ) ~. 
+
+
+
+
+// as a result
+//case(NN[result],IN[As/as])
+//det(NN[result],DT[a])
+
+If ( case(#1[lemma:"result"],#2[lemma:"as"]) && det(#1,#3) && #1[link="+"] ) ~.
+If ( case(#1[lemma:"consequence"],#2[lemma:"as"]) && det(#1,#3) && #1[link="+"] ) ~.
+
+
+//in order to
+//mwe(IN[In/in],NN[order])
+
+If ( mwe(#1[lemma:"in"],#2[lemma:"order"]) && #1[link="+"] ) ~.
+
+//I was not aware of what the strap really did or what extra precautions I needed to take in order to compensate for what the strap does not do.
+//wrong tagging:
+//compound['prt':'+'](VB[take],RP[in])
+//dobj(VB[take],NN[order])
+//mark(VB[take],TO[to]),
+
+If ( compound[prt](#1,#2[lemma:"in"]) && dobj(#1,#3[lemma:"order"]) && mark(#1,#4[lemma:"to"]) && #2[link="+"] )  ~.
+
+
+//nsubj(VBZ[means/mean],DT[This/this])
+
+If ( nsubj(#1[lemma:"mean"],#2[POS:"DT"]) && #2[link="+"] ) ~.
+If ( nsubj(#1[lemma:"mean"],#2[lemma:"it"]) && #2[link="+"] ) ~.
+
+//This [analysis]
+
+If ( nsubj(#1[analysis,Verb],#2[POS:"DT"]) && #2[link="+"] ) ~.
+
+
+//exception: 
+//Ethics has a broad definition and it means different things to different people.
+//nmod(VBZ[means/mean],NNS[people])
+
+If ( nsubj(#1[lemma:"mean",POS:"VBZ"],#2[lemma:"it"]) && nmod(#1,#3[lemma~:"I"]) && #2[link="~"] ) ~.
+
+//If first in the sentence: upon, from, through, by
+//Upon reflection I realized that my workplace does not adopt VBM practices. 
+//case(NN[reflection],IN[Upon/upon])
+
+If ( case(#1[reflection],#2[lemma:upon]) && #1[link="+"]) ~.
+If ( case(#1[reflection],#2[lemma:from]) && #1[link="+"]) ~.
+If ( case(#1[reflection],#2[lemma:through]) && #1[link="+"]) ~.
+If ( case(#1[reflection],#2[lemma:by]) && #1[link="+"]) ~.
+
+
+// "stance" and "analysis" words connecting two clauses
+//I felt the desire to mention it to one of the Vice Presidents I support, hoping that by planting that seed one day I will get to see the benefits. 
+//advmod(VBG[hoping/hope],IN[that])
+
+If (advmod(#1[stance,POS:"VBG"],#2[POS:"IN"]) && #1[link="+"]) ~.
+If (advmod(#1[analysis,POS:"VBG"],#2[POS:"IN"]) && #1[link="+"]) ~.
+
+
+//There was nothing exciting about the meeting it was like a casual conversation between people, it felt real and for that reason I found it inspirational.
+//case(NN[reason],IN[for])
+
+If ( case(#1[lemma:reason],#2) && #1[link="+"]) ~.
+
+//The reason for this is that when I am working as a paralegal at a boutique law firm I am still a voiceless follower.
+//nsubj(VBZ[is/be],NN[reason])
+
+If ( nsubj(#1[lemma:"be"],#2[lemma:"reason"]) && #2[link="+"]) ~.
+If ( nsubj(#1[lemma:"be"],#2[lemma:"explanation"]) && #2[link="+"]) ~.
+If ( nsubj(#1[lemma:"be"],#2[lemma:"cause"]) && #2[link="+"]) ~.
+If ( nsubj(#1[lemma:"be"],#2[lemma:"logic"]) && #2[link="+"]) ~.
+If ( nsubj(#1[lemma:"be"],#2[lemma:"sense"]) && #2[link="+"]) ~.
+If ( nsubj(#1[lemma:"be"],#2[lemma:"argument"]) && #2[link="+"]) ~.
+If ( nsubj(#1[lemma:"be"],#2[lemma:"argumentation"]) && #2[link="+"]) ~.
+If ( nsubj(#1[lemma:"be"],#2[lemma:"meaning"]) && #2[link="+"]) ~.
+
+//The final outcome of the task was then affected by the aid of my colleagues, where I eventually asked them for help in deciphering their recorded data which gave me a clearer view on each recording.
+//iobj(VBD[gave/give],PRP[me/I])
+//dobj(VBD[gave/give],NN[view])
+
+If ( iobj(#1[lemma:"give"],#2[subject]) && dobj(#1[lemma:"give"],#3[analysis]) && #1[link="+"]) ~.
+
+
+//From this exercise what I learnt most was not how it impacted employees but more so about the leaders role .
+//acl['relcl':'+'](NN[exercise],VBD[learnt/learn])
+//case(NN[exercise],IN[From/from])
+//nsubj(VBD[learnt/learn],PRP[I])
+//det(NN[exercise],DT[this])
+
+
+If ( acl(#1,#2[analysis]) && case(#1,#3)  && nsubj(#2,#4[subject]) && det(#1,#5[POS:"DT"]) && #1[link="+"]) ~.
+
+
+//Two key highlights that I learnt from that information session were about leaders. 
+//nmod(VBD[#1learnt/learn],NN[#2session])
+//case(NN[#2session],IN[#3from])
+//nsubj(VBD[#1learnt/learn],PRP[#4I])
+
+If (nmod(#1[analysis],#2[course]) && _1(#1,#3[subject]) ) #2[link=+].
+
+
+
+
+//made me (This made me think. / This made me happy.
+//nsubj(VB[think],PRP[me/I])
+//ccomp(VBD[made/make],VB[think])
+//xcomp(VBD[made/make],JJ[happy])
+
+If ( ccomp(#1[lemma:"make"],#2) && nsubj(#2,#3[subject]) && #1[link="+"] ) ~.
+If ( xcomp(#1[lemma:"make"],#2) && nsubj(#2,#3[subject]) && #1[link="+"] ) ~.
+
+If ( ccomp(#1[lemma:"help"],#2) && nsubj(#2,#3[subject]) && #1[link="+"] ) ~.
+If ( xcomp(#1[lemma:"help"],#2) && nsubj(#2,#3[subject]) && #1[link="+"] ) ~.
+
+//lead me (This led me to a think. )
+//dobj(VBD[led/lead],PRP[me/I])
+
+If (dobj(#1[lemma:"lead"],#2[subject]) && #1[link="+"] ) ~.
+If (dobj(#1[lemma:"enable"],#2[subject]) && #1[link="+"] ) ~.
+If (dobj(#1[lemma:"allow"],#2[subject]) && #1[link="+"] ) ~.
+If (dobj(#1[lemma:"help"],#2[subject]) && #1[link="+"] ) ~.
+If (dobj(#1[lemma:"make"],#2[subject]) && #1[link="+"] ) ~.
+
+
+//exception
+//Personally I believe I performed well in the things I felt qualified to do, but as for those that I had not been trained in, I felt that I handled the situation very poorly by giving the work to others in my team.
+//mark(VBD[felt/feel],IN[as])
+//case(DT[those],IN[for])
+//nmod(VBD[felt/feel],DT[those])
+
+If ( mark(#1,#2[lemma:as]) && case(#3,#4) && nmod(#1,#3) && ! ) #2[link="~"] .
+
+
+
+////////////////////////////// TEMPORALITY \\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+
+
+//This has been the only time I have felt inspired working for this organisation.
+//det(NN[time],DT[the])
+//nsubj(NN[time],DT[This/this])
+
+If ( det(#1[lemma:"time"],#2) && nsubj(#1,#3) && #1[temporality="+"] ) ~.
+
+//NER:DURATION
+
+
+If ( syn(#1[NER:"DURATION"]) && #1[temporality="+"] ) ~.
+
+If ( syn(#1[NER:"TIME"]) && #1[temporality="+"] ) ~.
+
+
+//timefact
+
+If ( syn(#1[timefact]) && #1[temporality="+"] ) ~.
+
+//timefact
+
+If ( advmod(#2[Verb],#1[tempexpr]) && nsubj(#2,#3[subject]) && #1[temporality="+"]  && ! ) ~.
+
+
+//period (this is a proxy of the TEMP & TIMEX3 dependency in XIP
+
+
+If ( advmod(#2[Verb],#1[period]) && nsubj(#2,#3[subject]) && #1[temporality="+"]  && ! ) ~.
+
+
+//DATE
+
+If ( syn(#1[NER:"DATE"]) && #1[temporality="+"] ) ~.
+
+// anticipate only with "I"
+//nsubj(VBP[anticipate],PRP[I])
+
+If (nsubj(#1[lemma:"anticipate"],#2[subject]) && #1[temporality="+"] ) ~.
+
+//present perfect + I
+//aux(VBN[seen/see],VBP[have])
+//aux(VBN[seen/see],VBZ[have])
+//nsubj(VBN[seen/see],PRP[I])
+
+
+If (aux(#1[POS:"VBN"],#2[lemma:"have",POS:"VBP"]) && nsubj(#1,#3[lemma:"I"]) && #1[temporality="+"] ) ~.
+
+
+
+// verbs with modal auxiliary
+//Pam talked about things I could do.
+//aux(VB[do],MD[could])
+
+If (aux(#1,#2[POS:"MD"]) && _1(#1,#3[subject]) && #1[temporality="+",futuretemp="+"] ) ~.
+
+//exception: As a result I could have potentially been harming equipment without realising.
+//aux(VBG[harming/harm],VB[have])
+
+If ( aux(#1[futuretemp],#2[lemma:have]) && #1[temporality="~",futuretemp="~"] ) ~.
+
+//I sincerely hope that this course will support the growth of my leadership skills to be more rounded and less execution oriented .
+//nsubj(VB[support],NN[course])
+//aux(VB[support],MD[will])
+
+If ( nsubj(#1,#2[course]) && aux(#1,#3[POS:"MD"]) && #1[temporality="+",futuretemp="+"] ) ~.
+
+//In order to improve my communication skills and writing techniques, I need to make time to thoroughly proof read my work and allow time for others to read through it as well.
+
+//xcomp(VBP[need],VB[make])
+//nsubj['Norm':'+'](VB[mak<e],PRP[I])
+
+If ( nsubj(#1,#2[subject]) && xcomp(#3[lemma:"need",VPAST:~],#1) && #1[temporality="+",futuretemp="+"] ) ~.
+
+
+//exception: can
+//aux(VB[make],MD[can])
+
+If ( aux(#1,#2[POS:"MD",lemma:"can"]) && #1[temporality="~",futuretemp="~"] ) ~.
+
+
+//I assumed that I could just re-engage- but I did not realise that the game had changed.
+//ccomp(VBD[assumed/assume],VB[re-engage])
+//aux(VB[re-engage],MD[could])
+
+If ( ccomp(#1[POS:"VBD"],#2) && aux(#2,#3) && #2[temporality="~",futuretemp="~"] ) ~.
+
+//As a result, when I felt 'safe' around a harmless circuit board, I would sometimes neglect the strap as I didn't see it as a threat to my safety.
+//aux(NN[neglect],MD[would])
+//syn(VBD:felt)
+
+//I reflected upon my own experience with working with leaders and I 'd have to say minimal.
+//aux(VB[have],MD['d/would])
+//syn(VBD:reflected])
+
+If ( syn(#1[POS:"VBD"]) && aux(#2,#3[POS:"MD"]) && p_precede(#1,#3) && #2[temporality="~",futuretemp="~"] ) ~. 
+
+
+// verbs embedded in present tense semi-auxiliaries
+//Why am I concerned with this, and what do I intend to change with regards to myself based on what I have come to understand through being reflective?
+//xcomp(VBP[intend],VB[change])
+//nsubj['Norm':'+'](VB[change],PRP[I])
+
+If ( xcomp(#1[intention,POS:"VBP"],#2) && nsubj(#2,#3[subject]) && #2[temporality="+",futuretemp="+"] ) ~.
+
+//So I made a decision to act ethically and not be a silent bystander at work.
+//nsubj(VBD[made/make],PRP[I])
+//dobj(VBD[made/make],NN[decision])
+//acl(NN[decision],VB[act])
+
+If ( nsubj(#1,#2[lemma:I]) && dobj(#1,#3[intention]) && acl(#3,#4[POS:"VB"]) && #4[temporality="+",futuretemp="+"] ) ~ .
+
+//I am determined to make the company my first point of research, for example the values of the company, their policies, their work culture and how they abide by any standards.
+//auxpass(VBN[determined/determine],VBP[am/be])
+//nsubjpass(VBN[determined/determine],PRP[I])
+//xcomp(VBN[determined/determine],VB[make])
+
+If ( auxpass(#1[intention],#2) && nsubjpass(#1,#3[subject]) && xcomp(#1,#4) && #4[temporality="+",futuretemp="+"] ) ~.
+
+//Upon finishing the subject, I honestly felt it was a worthwhile subject to do.
+//mark(VBG[finishing/finish],IN[Upon/upon])
+
+If (mark(#1[POS:"VBG",shifter],#2[POS:"IN",start]) && #1[temporality="+",link="+"]) ~.
+
+
+////////////////////////////// SHIFT \\\\\\\\\\\\\\\\\\\\\\\\\\
+
+If (syn(#1[change]) && #1[shift="+"]) ~ .
+
+//shifters are not shift in this grammar
+
+If (syn(#1[shifter]) && #1[shift="~"]) ~ .
+
+// reflection words embedded in shifters
+
+//Now I start to thi<nk, things begin to link up.
+//xcomp(VBP[start],VB[think])
+//nsubj['Norm':'+'](VB[think],PRP[I])
+
+If ( xcomp(#1[shifter],#2[reflection]) && nsubj(#2,#3[subject]) && #2[shift="+"]) ~ .
+
+//Now I 'm thinking that final testing of project must be done in supervising of entire group; we ca n't give responsibility to one person. 
+//advmod(VBG[thinking/think],RB[Now/now])
+
+If ( advmod(#1[reflection,POS:"VBG"],#2[lemma:"now"]) && #1[shift="+"]) ~ .
+
+
+//As a conclusion , this course definitely changed my attitude of approaching dialogue .
+//dobj(VBD[changed/change],NN[attitude])
+//nmod['poss':'+'](NN[attitude],PRP$[my])
+
+If ( dobj(#1[shifter],#2[stance]) && nmod(#2,#3[subject]) && #2[shift="+"]) ~ .
+
+
+//shift + past -> temporality
+
+If ( _1(#1[shifter,POS:"VBD"],#2[shift]) && #1[temporality="+"]) ~ .
+
+If ( _1(#2[shift],#1[shifter,POS:"VBD"]) && #1[temporality="+"]) ~ .
+
+//I can already see that my attitude towards University has changed.
+//nmod['poss':'+'](NN[attitude],PRP$[my])
+//nsubj(VBN[changed/change],NN[attitude])
+
+If ( nsubj(#1[shifter],#2[stance]) && nmod(#2,#3[subject]) && #2[shift="+"] ) ~ .
+
+If ( nsubj(#1[shifter],#2[reflection]) && nmod(#2,#3[subject]) && #2[shift="+"] ) ~ .
+
+//I have become more empathetic, compassionate, and feel a deeper connection to friends, family and peers. 
+//xcomp(VBN[become],JJ[empathetic])
+//nsubj(VBN[become],PRP[I])
+//aux(VBN[become],VBP[have])
+
+If ( xcomp(#1[shifter],#2[stance]) && nsubj(#1,#3[subject]) && aux(#1,#4[lemma:"have"]) && #2[shift="+"] ) ~ .
+
+/////////////
+
+//This led me to think about authentic leadership, you ca n't buy that, its genuine and you ca n't fake it.
+//dobj(VBD[led/lead],PRP[me/I])
+//xcomp(VBD[led/lead],VB[think])
+
+
+If ( xcomp(#1[lemma:"make"],#2) && dobj(#1,#3[subject]) && #1[shift="+"] ) ~.
+
+If ( xcomp(#1[lemma:"help"],#2) && dobj(#1,#3[subject]) && #1[shift="+"] ) ~.
+
+If ( xcomp(#1[lemma:"lead"],#2) && dobj(#1,#3[subject]) && #1[shift="+"] ) ~.
+
+If ( xcomp(#1[lemma:"enable"],#2) && dobj(#1,#3[subject]) && #1[shift="+"] ) ~.
+
+If ( xcomp(#1[lemma:"allow"],#2) && dobj(#1,#3[subject]) && #1[shift="+"] ) ~.
+
+
+////////////
+
+
+/////////////////////// restrictions \\\\\\\\\\\\\\\\\\\\\\
+
+
+/////////////////////// new dependencies containing reflective features \\\\\\\\\\\\\\\\\\\\\\
+
+//This was interesting work to me and hearing that places such as Google and Commbank were providing this support to Executives was comforting to hear. 
+//amod(NN[work],JJ[interesting])
+//nmod(NN[work],PRP[me/I])
+//D_NP(NP[interesting work to me/])
+
+If ( amod(#1,#2[stance]) && nmod(#1,#3[subject]) && ! ) nmod(#2,#3).
+
+
+//This led me to think about authentic leadership,you ca n't buy th at,its genuine and you ca n't fake it.
+//dobj(VBD[led/lead],PRP[me/I])
+//xcomp(VBD[led/lead],VB[think])
+
+If ( dobj(#1[lemma:"lead"],#2[subject]) && xcomp(#1,#3) && ! ) nsubj[Grrefl=+](#3,#2) .
+
+//As a result my future action will be to meet difficult situations and learn from my team members on how they approach the challenging task.
+//nmod['poss':'+'](#1NN[action],#2PRP$[my])
+//nsubj['Norm':'+'](#3VB[meet],#1NN[action])
+//xcomp(#4VB[be],#3VB[meet])
+//conj(#4VB[be],#5VB[learn])
+
+If ( nmod(#1,#2) && nsubj(#3,#1) && xcomp(#4,#3) && conj(#4,#5[analysis]) ) nsubj[Grrefl=+,Norm=+](#5,#1), dep[Grrefl=+](#2,#5) .  
+
+
+
+//I really enjoyed hearing about a case, then placed into the case and developing an action plan on how to manage that case.
+//dobj(VBD[enjoyed/enjoy],NN[hearing])
+//nsubj(VBD[enjoyed/enjoy],PRP[I])
+
+If ( dobj(#1[stance],#2[analysis,NOUNING]) && nsubj(#1,#3[subject]) ) nsubj[Norm=+,Grrefl=+](#2,#3) .
+
+//This has been the only time I have felt inspired working for this organisation.
+//xcomp(VBN[felt/feel],VBG[working/work])
+//xcomp(#1VBN[felt/feel],JJ[#2inspired])
+//nsubj(#1VBN[felt/feel],#3PRP[I])
+
+If ( xcomp(#1[Verb],#2[POS:"VBG"]) && nsubj(#1,#3[subject]) ) nsubj[Norm=+,Grrefl=+](#2,#3) .
+
+//If the team members have negative attitudes, it is important for him or her to find out the reasons behind it and make some changes so as to cater for their needs.
+//nsubj(VBP[have],NNS[members/member])
+//dobj(VBP[have],NNS[attitudes/attitude])
+
+If ( nsubj(#1[lemma:"have"],#2[subject]) && dobj(#1,#3[stance]) ) dep[Grrefl=+](#2,#3) .
+
+If ( nsubj(#1[lemma:"have"],#2[othersubject]) && dobj(#1,#3[stance]) ) dep[Grrefl=+](#2,#3) .
+
+//So I made a statement to act ethically and not be a silent bystander at work.
+//nsubj(VBD[made/make],PRP[I])
+//dobj(VBD[made/make],NN[statement])
+
+If ( nsubj(#1[lemma:"make"],#2[subject]) && dobj(#1,#3[analysis]) ) dep[Grrefl=+](#2,#3) .
+
+// indirect dependencies:
+
+//She assumes that I am still doing brilliantly - though past year she did question how I could be doing so well on so little work.
+//nsubj(VBG[doing/do],PRP[I])
+//advmod(VBG[doing/do],RB[brilliantly])
+
+If ( nsubj(#1,#2[subject]) && advmod(#1,#3[stance]) ) dep[Grrefl=+](#2,#3) .
+
+//I will go back to Pam when I done the thinking as well.
+//nsubj(VBD[done/do],PRP[I])
+//dobj(VBD[done/do],NN[thinking])
+
+If ( nsubj(#1[lemma:do],#2[subject]) && dobj(#1,#3[analysis]) ) dep[Grrefl=+](#2,#3) .
+
+If ( nsubj(#1[lemma:have],#2[subject]) && dobj(#1,#3[analysis]) ) dep[Grrefl=+](#2,#3) .
+
+If ( nsubj(#1[lemma:take],#2[subject]) && dobj(#1,#3[analysis]) ) dep[Grrefl=+](#2,#3) .
+
+
+//To use the computational software successfully I was also required to apply theoretical engineering knowledge that I had gained through university studies, and which had been further developed during the internship.
+//nsubj(VBN[gained/gain],PRP[I])
+//dobj(VB[apply],NN[knowledge])
+//ccomp(VB[apply],VBN[gained/gain])
+
+If ( nsubj(#1,#2[subject]) && dobj(#3,#4[analysis]) && ccomp(#3,#1) ) dep[Grrefl=+](#2,#4) .
+
+
+////////////////// word feautures depending on reflective features \\\\\\\\\\\\
+
+//I continued to contemplate how I was going to tactfully address this questionable behaviour .
+//advmod(VBG[going/go],WRB[how])
+//ccomp(VB[contemplate],VBG[going/go])
+//nsubj['Norm':'+'](VB[contemplate],PRP[I])
+
+
+If ( ccomp(#1[analysis],#2) && advmod(#2,#3[POS:"WRB",lemma~:while]) && #3[contrast="+"] ) ~ .
+
+
+//I really enjoyed hearing about a case, then placed into the case and developing an action plan on how to manage that case.
+//dep['Grrefl':'+'](NN[plan],WRB[how])
+
+If ( _(#1[analysis],#2[POS:"WRB",lemma~:while]) && #2[contrast="+"] ) ~ .
+
+If ( syn(#1[lemma:whereby])  && #1[contrast="~"] ) ~ .
+
+////////////////////////// final disambiguation rules \\\\\\\\\\\\\\\\\\
+
+// words that get a rhetorical feature if they are related to words with special features
+
+//I really enjoyed hearing about a case, then placed into the case and developing an action plan on how to manage that case. (EMBED_POST_GERUND(like,playing))
+
+//wscope, wment, wmentsco --> wrefl
+
+If ( syn(#1[wscope]) && #1[wrefl="+"] ) ~.
+
+If ( syn(#1[wment]) && #1[wrefl="+"] ) ~.
+
+If ( syn(#1[wmentsco]) && #1[wrefl="+"] ) ~.
+
+//wrefl
+
+
+////////////////////// REFLECTIVE CONCEPTS \\\\\\\\\\\\\\\\
+
+If ( syn(#1[temporality]) && #1[rc="+"] ) ~.
+
+If ( syn(#1[stance]) && #1[rc="+"] ) ~.
+
+If ( syn(#1[contrast]) && #1[rc="+"]) ~.
+
+If ( syn(#1[shift]) && #1[rc="+"]) ~.
+
+If ( syn(#1[subject]) && #1[rc="+"]) ~.
+
+If ( syn(#1[othersubject]) && #1[rc="+"]) ~.
+
+If ( syn(#1[analysis]) && #1[rc="+"]) ~.
+
+If ( syn(#1[link]) && #1[rc="+"]) ~.
+
+
+
+//If (stop) ~.
+
+
+

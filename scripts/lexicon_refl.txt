@@ -1,0 +1,276 @@
+I = [subject=+].
+my = [subject=+].
+mine = [subject=+].
+we = [subject=+].
+our = [subject=+].
+ours = [subject=+].
+
+
+admit = [reflection=+].
+agree[Pres:+] = [reflection=+].
+assess = [reflection=+].
+attention = [reflection=+].
+awareness = [reflection=+,myrefl=+].
+aware = [reflection=+].
+believe = [reflection=+].
+cause[Noun:+] = [reflection=+,myrefl=+].
+clarification[Noun:+] = [reflection=+,shift=+].
+clarified[Adj:+] = [reflection=+,shift=+].
+clarify[Verb:+] = [reflection=+,shift=+].
+communicate = [reflection=+].
+conscious = [reflection=+,myrefl=+].
+consideration = [reflection=+,myrefl=+].
+consider = [reflection=+].
+contemplate = [reflection=+].
+critique = [reflection=+].
+demonstrate = [reflection=+].
+detect = [reflection=+].
+diagnose = [reflection=+].
+diagnosis = [reflection=+].
+discovered[Adj:+] = [reflection=+,shift=+].
+discovering = [reflection=+,shift=+].
+discover = [reflection=+].
+discovery = [reflection=+].
+discussion = [reflection=+].
+discuss = [reflection=+].
+emphasise = [reflection=+].
+emphasize = [reflection=+].
+evaluate = [reflection=+].
+evaluation = [reflection=+].
+expect = [reflection=+].
+experience = [reflection=+,stance=+].
+explain = [reflection=+].
+explanation = [reflection=+,myrefl=+].
+exploration = [reflection=+].
+explore = [reflection=+].
+find[VProg:~] = [reflection=+].
+focus = [reflection=+,myrefl=+].
+hear = [reflection=+].
+hearing = [reflection=+].
+horizon = [reflection=+].
+ignore = [reflection=+,contr=+,nounary=+].
+inspire = [reflection=+,shift=+].
+knowledge = [reflection=+].
+learn = [reflection=+].
+logic = [reflection=+].
+meaning = [reflection=+].
+mind = [reflection=+].
+notice[Verb:+] = [reflection=+].
+overthink = [reflection=+].
+perceive = [reflection=+].
+perception = [reflection=+,myrefl=+].
+perspective = [reflection=+].
+ponder = [reflection=+].
+question = [reflection=+].
+reaffirm = [reflection=+].
+realise = [reflection=+].
+realize = [reflection=+].
+reason = [reflection=+].
+recognise = [reflection=+].
+recognition = [reflection=+,myrefl=+].
+recognize = [reflection=+].
+reconceptualize = [reflection=+,shift=+].
+reconsideration = [reflection=+,shift=+].
+reconsidered = [reflection=+,shift=+].
+reconsidering = [reflection=+,shift=+].
+reconsider = [reflection=+,shift=+].
+redefined = [reflection=+,shift=+].
+redefine = [reflection=+,shift=+].
+redefining = [reflection=+,shift=+].
+redefinition = [reflection=+,shift=+].
+reevaluate[Verb:+] = [reflection=+,shift=+].
+reevaluation[Noun:+] = [reflection=+,shift=+].
+reflection = [reflection=+,myrefl=+].
+reflect = [reflection=+].
+reformulate = [reflection=+,shift=+].
+reformulation = [reflection=+,shift=+].
+regret = [reflection=+,shift=+].
+reprioritise = [reflection=+,shift=+].
+rework = [reflection=+,shift=+].
+see = [reflection=+].
+sense = [reflection=+].
+show = [reflection=+].
+strike = [reflection=+,contr=+,ksw=+].
+study[Verb:+] = [reflection=+,ksw=+].
+takeaway = [reflection=+,shift=+].
+thinking = [reflection=+,myrefl=+].
+think = [reflection=+].
+thought = [reflection=+,myrefl=+].
+unawareness = [reflection=+,contr=+,myrefl=+].
+unaware = [reflection=+,contr=+].
+understanding = [reflection=+,myrefl=+].
+understand = [reflection=+].
+view = [reflection=+].
+vision = [reflection=+].
+visualise = [reflection=+].
+visualize = [reflection=+].
+wonder = [reflection=+,contrast=+].
+
+
+
+
+
+appreciate = [sentiment=+].
+enjoy = [sentiment=+].
+feel = [sentiment=+].
+achieve = [shift=+].
+become = [shift=+].
+begin = [shift=+].
+broaden = [shift=+,stance=+].
+change = [shift=+].
+clarify[Verb:+] = [reflection=+,shift=+].
+clarified[Adj:+] = [reflection=+,shift=+].
+clarification[Noun:+] = [reflection=+,shift=+].
+commence = [shift=+].
+conclude[Past:+] = [shift=+].
+
+
+
+develop = [shift=+].
+discover = [shift=+].
+discovering = [reflection=+,shift=+].
+discovered[Adj:+] = [reflection=+,shift=+].
+discovery = [shift=+].
+evolve = [shift=+].
+expand = [shift=+].
+end = [shift=+].
+finish = [shift=+].
+grow = [shift=+].
+hone = [shift=+,stance=+].
+impact = [shift=+].
+improve = [shift=+,stance=+].
+leap = [shift=+].
+new = [shift=+].
+realise = [shift=+].
+realize = [shift=+].
+recognise = [shift=+].
+recognize = [shift=+].
+recognition = [shift=+].
+redirect = [shift=+].
+regret = [reflection=+,shift=+].
+understand[Past:+] = [shift=+].
+start = [shift=+].
+albeit = [contrast=+].
+but = [contrast=+].
+though = [contrast=+].
+unless = [contrast=+].
+whilst = [contrast=+].
+however = [contrast=+].
+neither = [contrast=+].
+nor = [contrast=+].
+differently = [contrast=+].
+face[Verb:+] = [contrast=+].
+intrigue = [contrast=+].
+intriguing = [contrast=+].
+obstruct = [contrast=+].
+overcome = [contrast=+].
+surmount = [contrast=+].
+barrier = [contr=+,ksw=+].
+//course = [scope=+,ksw=+,course=+].
+//class = [scope=+,ksw=+,course=+].
+//classmate = [scope=+,ksw=+,course=+].
+//classroom = [scope=+,ksw=+,course=+].
+//lecture = [scope=+,ksw=+,course=+].
+//professor = [scope=+,ksw=+,course=+].
+//teach = [scope=+,ksw=+,course=+].
+assignment = [course=+,analysis=+].
+course = [course=+].
+class = [course=+].
+classmate = [course=+].
+classroom = [course=+].
+lecture = [course=+].
+professor = [course=+].
+Professor = [course=+].
+session = [course=+].
+training = [course=+].
+university = [course=+].
+theory = [publ=+].
+truly = [attitude=+,ksw=+].
+Natalia = [firstname=+,fem=+].
+
+base[POS:VBN] = [link=+].
+because = [link=+].
+relate[POS:VBN] = [link=+].
+related = [link=+].
+so[POS:IN] = [link=+].
+thus = [link=+].
+
+
+
+//intention: words that compose futuretemp
+
+aim = [intention=+,reflection=+].
+anticipate = [intention=+,reflection=+].
+anticipation = [intention=+,reflection=+].
+aspiration = [intention=+,reflection=+].
+aspire = [intention=+,reflection=+].
+decide = [intention=+,reflection=+].
+decision = [intention=+,reflection=+].
+determination = [intention=+,reflection=+].
+determine = [intention=+,reflection=+].
+endeavour = [intention=+,reflection=+].
+expectation = [intention=+,reflection=+].
+expect = [intention=+,reflection=+].
+goal = [intention=+,reflection=+].
+intend = [intention=+,reflection=+].
+intent = [intention=+,reflection=+].
+intention = [intention=+,reflection=+].
+plan = [intention=+,reflection=+].
+resolve = [intention=+,reflection=+].
+try = [intention=+].
+want = [intention=+].
+will[Noun:+] = [intention=+].
+
+
+become = [shifter=+].
+begin = [shifter=+].
+broaden = [shifter=+].
+change = [shifter=+].
+commence = [shifter=+].
+develop = [shifter=+].
+end = [shifter=+].
+expand = [shifter=+].
+finish = [shifter=+].
+grow = [shifter=+].
+impact = [shifter=+].
+inspire = [shifter=+].
+start = [shifter=+].
+
+// re-engage = [shift=+]. ask CLaude
+
+
+future = [futuretemp=+,temporality=+,unary=+].
+henceforth = [futuretemp=+,temporality=+,unary=+].
+initially = [temporality=+].
+old = [temporality=+].
+once = [temporality=+].
+prospect[Noun:+] = [temporality=+,analysis=+].
+when = [temporality=+].
+whenever = [temporality=+].
+
+attitude = [stance=+].
+benefit = [stance=+].
+clear = [stance=+,analysis=+].
+concern[POS:VBN] = [stance=+].
+concrete = [stance=+].
+cynical = [stance=+].
+definitely = [stance=+].
+difficult = [stance=+,negativesent=+,contrast=+].
+disposition = [stance=+].
+empathetic = [stance=+].
+empathic = [stance=+].
+empathise = [stance=+].
+hope = [stance=+].
+in_particular = [stance=+].
+limitation = [stance=+,contrast=+].
+really = [stance=+].
+resonate = [stance=+].
+sensitive = [stance=+].
+silly = [stance=+].
+sure = [stance=+].
+unsure = [stance=+,contrast=+,analysis=+].
+
+
+
+
+
