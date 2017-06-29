@@ -9,7 +9,7 @@ import opennlp.tools.tokenize.TokenizerModel
   * Created by andrew@andrewresearch.net on 19/5/17.
   */
 object Models {
-  def fullPath(model:String) = "/Users/andrew/Documents/development/_projects/CIC-Current/tap-api/src/main/resources/opennlp-models/"+model
+  def fullPath(model:String) = "./models/opennlp/"+model
 
   object Sentence {
     val path = fullPath("en-sent.bin")

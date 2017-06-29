@@ -38,7 +38,7 @@ object CorpusAnalysisHandler {
       }
       case "file" => CorpusPipeline(Local.directorySource("/"+msg.corpus),Local.fileFlow).run
       //Local.pipeline.toMat(Sink.seq[Future[String]])(Keep.right) //.via(Local.pipeline).toMat(Sink.seq[String])(Keep.right)
-      //case "topic" => s"Analysing ${msg.corpus} for ${msg.analysisType}" //Pipeline(sourceFrom(msg.byteStr),Clean.pipeline.via(Structure.pipeline))
+      //case "topic" => s"Analysing ${msg.corpus} for ${msg.analysisType}" //Pipeline(sourceFrom(msg.byteStr),Cleaning.pipeline.via(Structure.pipeline))
       case _ => {
         throw UnknownAnalysisType("Unknown analysis type")
       }

@@ -76,7 +76,6 @@ src/test/java/
 src/test/resources/
 src/test/scala-2.12/
 /src/main/resources/
-!/.gitignore
-!/build.sbt
-!/project/build.properties
-!/project/plugins.sbt
+/scalastyle-config.xml
+scalastyle-config.xml
+src/main/scala/au/edu/utscic/tap/data/nlp/coreNlp/

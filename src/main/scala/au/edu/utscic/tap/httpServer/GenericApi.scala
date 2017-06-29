@@ -23,7 +23,7 @@ trait GenericApi extends Json4sSupport {
 
   import au.edu.utscic.tap.TapStreamContext._
 
-  val version = "v1"
+  val version = "v2"
   val details:String = "no details yet" // ApiInfo(Config.name,Config.description,Config.version,Config.colour)
   val healthEndPoint = "health"
 

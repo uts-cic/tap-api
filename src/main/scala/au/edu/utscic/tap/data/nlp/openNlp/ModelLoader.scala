@@ -27,7 +27,10 @@ object ModelLoader {
     }
   }
 
-  private def modelFile(model:String) = new FileInputStream(model)
+  private def modelFile(model:String) = {
+    println("Loading models from: "+(new java.io.File(model).getCanonicalPath))
+    new FileInputStream(model)
+  }
 
 
 }

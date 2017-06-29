@@ -1,0 +1,8 @@
+//features added to the stanford parser
+
+//perfect
+
+//aux(VBN[learnt/learn],VBP[have])
+
+If ( ^aux(#1[PastBoth],#2[lemma:"have",Pres]) ) aux[PresPerf=+](#1,#2) .
+
