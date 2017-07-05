@@ -4,9 +4,9 @@ package au.edu.utscic.tap.analysis.textshapes
   *
   * @todo Potential intensity functions…
   *
-  * 1. The number of important sections words in a sentences. i.e. TF/IDF (sections as collection, chunk as sections), count of most rare words.
-  * 2. Vocabulary - count of unique words per sentences
-  * 3. Length - size of sentences
+  * 1. The number of important sections words in a nlpSentences. i.e. TF/IDF (sections as collection, chunk as sections), count of most rare words.
+  * 2. Vocabulary - count of unique words per nlpSentences
+  * 3. Length - size of nlpSentences
   * 4. Word2Vec similarity
   * 5. Cosine similarity of centroid
   *

@@ -2,6 +2,7 @@ package au.edu.utscic.tap.pipelines
 
 import akka.NotUsed
 import akka.stream.scaladsl.Flow
+import akka.util.ByteString
 
 /*****************************************
   *  Cleaning
@@ -16,107 +17,124 @@ object Cleaning  {
     *      A convenience object that holds the pipelines
     *      for cleaning
     */
-  object Pipeline {
-    val revealInvisible:Flow[Char,String,NotUsed] = makeVisible.via(makeString)
-    val lengthPreserveClean:Flow[Char,String,NotUsed] = whitespaceReplace.via(cntlExtReplace).via(makeString)
-    val fullCleanUtf:Flow[Char,String,NotUsed] = charReplace.via(stripControl).via(stripExtended).via(reduceWhiteSpace)
-    val fullClean127:Flow[Char,String,NotUsed] = charReplace.via(stripAbove127).via(stripControl).via(stripExtended).via(reduceWhiteSpace)
+  object Pipeline { //Flow[ByteString,String,NotUsed]
+    val revealInvisible = utf8Str via visibleWhitespace via replaceControl
+    val simplify = utf8Str via simplifyQuotes via simplifyHyphens
+    val lengthPreserve = utf8Str via simplifyWhitespace via replaceControl
+    val utfMinimal = utf8Str via simplifyWhitespace via stripControl via reduceSpace
+    val utfSimplify = utf8Str via simplifyWhitespace via simplifyQuotes via simplifyHyphens via stripControlExtended via reduceSpace
+    val asciiOnly = utfSimplify via stripNonAscii
+
   }
 
-  //Characters
-  val notChar = '\u00ac'
-  val singleAposChar = '\u0027'
-  val dotChar = '\u00b7'
-  val hyphen = '\u002d'
-  val currency = '\u00a4'
-  val macron = '\u00af'
-  val newLine = '\u000a'
-  val spaceChar = '\u0020'
-  val singleCurlyLeft = '\u2018'
-  val singleCurlyRight = '\u2019'
-  val doubleCurlyLeft = '\u201c'
-  val doubleCurlyRight = '\u201d'
-  val quoteChar = '\u0022'
+  val utf8Str:Flow[ByteString,String,NotUsed] = Flow[ByteString].map(_.utf8String)
 
-  //Filters
-  val singleCurlyQuotes = (c:Char) => c == singleCurlyLeft || c == singleCurlyRight
-  val doubleCurlyQuotes = (c:Char) => c == doubleCurlyLeft || c == doubleCurlyRight
-  val carriageReturn = (c:Char) => c == '\u000d'
-  val lfCr = (c:Char) => c == newLine || carriageReturn(c) // true if linefeed or carriage return
-  val nonBreakSpace = (c:Char) => c == '\u00a0'
-  val spaces = (c:Char) => c == spaceChar || nonBreakSpace(c) // space or non-break space
-  val softHyphen = (c:Char) => c == '\u00ad'
-  val lowerControl = (c:Char) => c <= '\u001f'
-  val middleControl = (c:Char) => c >= '\u007f' && c <= '\u009f'
-  val allControl = (c:Char) => lowerControl(c) || middleControl(c)
-  val extended = (c:Char) => c >= '\u0100'
-  val above127 = (c:Char) => c > '\u007e'
-
-
-
-
-  /****************
-    * @name makeVisible Flow
-    *      Takes a UTF-8 string as a stream of characters (including invisibles)
-    *      Outputs a stream of visible characters
-    */
-  val makeVisible:Flow[Char,Char,NotUsed] = Flow[Char].map {
-    case c if singleCurlyQuotes(c) => singleAposChar
-    case c if doubleCurlyQuotes(c) => quoteChar
-    case c if lfCr(c) => notChar
-    case c if spaces(c) => dotChar
-    case c if softHyphen(c) => hyphen
-    case c if allControl(c) => macron
-    case c if extended(c) => currency
-    case c => c //all others pass through
+  val visibleWhitespace = Flow[String].map { str =>
+    str.replaceAll(White.rgx_space,Replace.dot) // Spaces
+      .replaceAll(White.rgx_line,Replace.not) // Line endings
   }
 
-  val makeString:Flow[Char,String,NotUsed] = Flow[Char].fold("")(_ + _)
-
-
-  val whitespaceReplace:Flow[Char,Char,NotUsed] = Flow[Char].map {
-    case c if carriageReturn(c) => newLine
-    case c if nonBreakSpace(c) => spaceChar
-    case c => c
+  val replaceControl = Flow[String].map { str =>
+    str.map {c =>
+      if(CharFilter.controlExt(c)) Replace.qmk else c
+    }.mkString
   }
 
-  val cntlExtReplace:Flow[Char,Char,NotUsed] = Flow[Char].map {
-    case c if allControl(c) => spaceChar
-    case c if extended(c) => spaceChar
-    case c if softHyphen(c) => hyphen
-    case c => c
+  val simplifyWhitespace = Flow[String].map { str =>
+    str.replaceAll(White.rgx_space,White.sp)
+      .replaceAll(White.rgx_line,White.nl)
   }
 
-
-
-
-  val charReplace:Flow[Char,Char,NotUsed] = Flow[Char].map {
-    case c if singleCurlyQuotes(c) => singleAposChar
-    case c if doubleCurlyQuotes(c) => quoteChar
-    case c if softHyphen(c) => hyphen
-    case c => c //all others pass through
+  val simplifyQuotes = Flow[String].map { str =>
+    str.replaceAll(Quote.rgx_dblCurl,Quote.doubleQuote)
+      .replaceAll(Quote.rgx_sglCurl,Quote.singleQuote)
   }
 
-  /* Remove characters that represented control characters */
-  val stripControl = Flow[Char].filterNot(c => allControl(c))
-  val stripExtended = Flow[Char].filterNot(c => extended(c))
+  val simplifyHyphens = Flow[String].map { str =>
+    str.replaceAll(Hyphen.rgx_hyphens,Hyphen.ascii)
+  }
 
+  val stripControl = Flow[String].map { str =>
+    str.filterNot(CharFilter.allControl)
+  }
 
-  /* Reduce multiple spaces to single spaces, multiple newlines indicate a sentences */
-  val reduceWhiteSpace = Flow[Char].fold(""){(s:String,c:Char) =>
-      if(spaces(c)) { //will end with space
-        if(s.endsWith(spaceChar.toString) || s.endsWith(newLine.toString)) s
-        else s + spaceChar
-      } else if(lfCr(c)) { //will end with newline
-        if(s.endsWith(spaceChar.toString)) s.dropRight(1) + newLine
-        else if(s.endsWith(newLine.toString)) s // multiple newlines treated as sentences break
+  val stripControlExtended = Flow[String].map { str =>
+    str.filterNot(CharFilter.controlExt)
+  }
+
+  val stripNonAscii = Flow[String].map { str =>
+    str.filterNot(CharFilter.above127)
+  }
+
+  val reduceSpace = Flow[String].map { str =>
+    str.foldLeft("") { (s:String,c:Char) =>
+      if(White.isSpace(c)) { //will end with space
+        if(s.endsWith(White.sp) || s.endsWith(White.nl)) s
+        else s + White.sp
+      } else if(White.isLineEnd(c)) { //will end with newline
+        if(s.endsWith(White.sp)) s.dropRight(1) + White.nl
+        else if(s.endsWith(White.nl)) s
         else s + c
       } else s + c
+    }
   }
 
-  val stripAbove127 = Flow[Char].filterNot(c => above127(c))
 
 
+  //Character Objects
 
+  object White {
+    val tab = "\u0009"
+    val nl = "\u000a"
+    val cr = "\u000d"
+    val sp = "\u0020"
+    val nb = "\u00a0"
+    val rgx_space = s"$sp|$nb|$tab"
+    val rgx_line = s"$nl|$cr"
+    val rgx_all = s"$rgx_space|$rgx_line"
+
+    def isSpace(c:Char) = sp.contains(c) || nb.contains(c) || tab.contains(c)
+    def isLineEnd(c:Char) = nl.contains(c) || cr.contains(c)
+  }
+
+  object Replace {
+    val not = "\u00ac"
+    val dot = "\u00b7"
+    val qmk = "\ufffd"
+  }
+
+  object Quote {
+    val singleCurlyLeft = "\u2018"
+    val singleCurlyRight = "\u2019"
+    val doubleCurlyLeft = "\u201c"
+    val doubleCurlyRight = "\u201d"
+    val doubleQuote = """\u0022"""
+    val singleQuote = "\u0027"
+    val rgx_dblCurl = s"$doubleCurlyLeft|$doubleCurlyRight"
+    val rgx_sglCurl = s"$singleCurlyLeft|$singleCurlyRight"
+  }
+
+  object Hyphen {
+    val ascii = "\u002d"
+    val soft = "\u00ad"
+    val unicode = "\u2010"
+    val nb = "\u2011"
+    val fig = "\u2012"
+    val en = "\u2013"
+    val em = "\u2014"
+    val bar = "\u2015"
+    val minus = "\u2212"
+    val rgx_hyphens = s"$soft|$unicode|$nb|$fig|$en|$em|$bar|$minus"
+  }
+
+  object CharFilter {
+    val notNewline = (c:Char) => c != White.nl.head
+    val lowerControl = (c:Char) => (c <= '\u001f') && notNewline(c)
+    val middleControl = (c:Char) => c >= '\u007f' && c <= '\u009f'
+    val allControl = (c:Char) => lowerControl(c) || middleControl(c)
+    val extended = (c:Char) => c >= '\u0100'
+    val controlExt = (c:Char) => extended(c) || allControl(c)
+    val above127 = (c:Char) => c > '\u007e'
+  }
 
 }
