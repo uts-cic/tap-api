@@ -15,13 +15,13 @@ class TapStreamRouteSpec extends WordSpec with Matchers with ScalatestRouteTest 
     "return a greeting for GET requests to the root path" in {
       // tests:
       Get() ~> routes ~> check {
-        responseAs[ResponseMessage].message shouldEqual "The current version of this API can be found at /v1"
+        responseAs[ResponseMessage].message shouldEqual "The current version of this API can be found at /v2"
       }
     }
 
-    "return an 'ok' message for GET requests to /v1/health" in {
+    "return an 'ok' message for GET requests to /v2/health" in {
       // tests:
-      Get("/v1/health") ~> routes ~> check {
+      Get("/v2/health") ~> routes ~> check {
         responseAs[ResponseMessage].message shouldEqual "ok"
       }
     }
