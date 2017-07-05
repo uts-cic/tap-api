@@ -1,0 +1,121 @@
+transducer english(_current+"english.tra");
+
+map lexicons;
+
+string splitrule = @"
+
+bloc := _entrees+.
+
+_entrees := _entree;%S_+.
+
+_entree := word,(feat),"=",feat,".".
+
+_letter := %a;"_";"-";".".
+
+word := _letter+.
+_attribute := _letter+.
+
+_send := ",";"]".
+
+_value := ~_send+.
+
+sep := "=";":".
+attval := _attribute,sep,_value.
+
+_vattval := ",",attval.
+
+feat := "[",attval, _vattval*,"]".
+"@;
+
+grammar g(splitrule);
+
+function loadlexicon(string path) {
+    //We load a lexicon here...
+    file loadlex(path);
+    svector vlex=loadlex.read();
+    loadlex.close();
+
+    string k,v;
+    for (string s in vlex) {
+        s=s.trim();
+        if (s=="" or s[:2]=='//' or s[0]=='#')
+            continue;
+        s=s.replace(" ","");
+        vector vfeat=g.apply(s);
+        if (vfeat.size()==0) {
+            println("Error:",s);
+            _exit();
+        }
+
+        mapss feats;
+        int db=2;
+        if (vfeat.size()==4)  {
+            db=3;
+            for (self e in vfeat[2][2:]) {
+                if (e.isvector())
+                    feats[e[1]]=e[3];
+            }
+        }
+        //If we need to add features to a synode, then each of these features should start with a "="
+        //in order to tell synode Merging (&&&) operator, which features to use as a constraint and which to use
+        //as a value...
+        for (self e in vfeat[db][2:]) {
+            if (e.isvector())
+                feats["="+e[1]]=e[3];
+        }
+        string key=vfeat[1][1];
+        if (lexicons.test(key)==false)
+            lexicons[key]=[feats];
+        else
+            lexicons[key].push(feats);
+    }
+    return(true);
+}
+
+
+//We enrich our node with both information from the English regular lexicon and the user lexicon...
+function addwordfeatures(synode n) {
+    string pos=n["POS"];
+    string check;
+    switch(pos[0]) {
+        "V": check="Verb";
+        "N":check="Noun";
+        "J":check="Adj";
+    }
+    string surf=n["surface"];
+    svector feats=english.lookup(surf);
+    if (feats==[]) {
+        if (surf[0].isupper())
+            surf=surf.lower();
+        feats=english.lookup(surf);
+        if (feats==[])
+            return;
+        n["upper"]=true;
+    }
+    svector vs;
+    if (check=="")
+        vs=feats[0]["\t":][1:].split("+");
+    else {
+        for (self e in feats) {
+            if (check in e) {
+                vs=e["\t":][1:].split("+");
+                break;
+            }
+        }
+    }
+    
+    for (surf in vs)
+        n[surf]="+";
+        
+    surf=n["lemma"];
+    if (surf in lexicons) {
+        mapss features;
+        for (features  in lexicons[surf])
+            n&&&=features;
+    }
+}
+
+
+
+
+

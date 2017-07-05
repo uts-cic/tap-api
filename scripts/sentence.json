@@ -1,0 +1,594 @@
+[
+	{
+		"0": {
+			"POS": "ROOT",
+			"id": 0
+		},
+		"1": {
+			"id": 1,
+			"surface": "Oddly",
+			"left": 0,
+			"lemma": "oddly",
+			"right": 5,
+			"POS": "RB",
+			"NER": "O",
+			"Speaker": "PER0"
+		},
+		"2": {
+			"id": 2,
+			"surface": "enough",
+			"left": 6,
+			"lemma": "enough",
+			"right": 12,
+			"POS": "RB",
+			"NER": "O",
+			"Speaker": "PER0"
+		},
+		"3": {
+			"id": 3,
+			"surface": "I",
+			"left": 13,
+			"lemma": "I",
+			"right": 14,
+			"POS": "PRP",
+			"NER": "O",
+			"Speaker": "PER0"
+		},
+		"4": {
+			"id": 4,
+			"surface": "found",
+			"left": 15,
+			"lemma": "find",
+			"right": 20,
+			"POS": "VBD",
+			"NER": "O",
+			"Speaker": "PER0"
+		},
+		"5": {
+			"id": 5,
+			"surface": "it",
+			"left": 21,
+			"lemma": "it",
+			"right": 23,
+			"POS": "PRP",
+			"NER": "O",
+			"Speaker": "PER0"
+		},
+		"6": {
+			"id": 6,
+			"surface": "quite",
+			"left": 24,
+			"lemma": "quite",
+			"right": 29,
+			"POS": "RB",
+			"NER": "O",
+			"Speaker": "PER0"
+		},
+		"7": {
+			"id": 7,
+			"surface": "empowering",
+			"left": 30,
+			"lemma": "empower",
+			"right": 40,
+			"POS": "VBG",
+			"NER": "O",
+			"Speaker": "PER0"
+		},
+		"8": {
+			"id": 8,
+			"surface": "to",
+			"left": 41,
+			"lemma": "to",
+			"right": 43,
+			"POS": "TO",
+			"NER": "O",
+			"Speaker": "PER0"
+		},
+		"9": {
+			"id": 9,
+			"surface": "hear",
+			"left": 44,
+			"lemma": "hear",
+			"right": 48,
+			"POS": "VB",
+			"NER": "O",
+			"Speaker": "PER0"
+		},
+		"10": {
+			"id": 10,
+			"surface": "Natalia",
+			"left": 49,
+			"lemma": "Natalia",
+			"right": 56,
+			"POS": "NNP",
+			"NER": "PERSON",
+			"Speaker": "PER0"
+		},
+		"11": {
+			"id": 11,
+			"surface": "state",
+			"left": 57,
+			"lemma": "state",
+			"right": 62,
+			"POS": "NN",
+			"NER": "O",
+			"Speaker": "PER0"
+		},
+		"12": {
+			"id": 12,
+			"surface": "the",
+			"left": 63,
+			"lemma": "the",
+			"right": 66,
+			"POS": "DT",
+			"NER": "O",
+			"Speaker": "PER0"
+		},
+		"13": {
+			"id": 13,
+			"surface": "following",
+			"left": 67,
+			"lemma": "follow",
+			"right": 76,
+			"POS": "VBG",
+			"NER": "O",
+			"Speaker": "PER0"
+		},
+		"14": {
+			"id": 14,
+			"surface": "``",
+			"left": 77,
+			"lemma": "``",
+			"right": 79,
+			"POS": "``",
+			"NER": "O"
+		},
+		"15": {
+			"id": 15,
+			"surface": "Real",
+			"left": 79,
+			"lemma": "real",
+			"right": 83,
+			"POS": "JJ",
+			"NER": "O",
+			"Speaker": "PER1"
+		},
+		"16": {
+			"id": 16,
+			"surface": "life",
+			"left": 84,
+			"lemma": "life",
+			"right": 88,
+			"POS": "NN",
+			"NER": "O",
+			"Speaker": "PER1"
+		},
+		"17": {
+			"id": 17,
+			"surface": "dilemmas",
+			"left": 89,
+			"lemma": "dilemma",
+			"right": 97,
+			"POS": "NNS",
+			"NER": "O",
+			"Speaker": "PER1"
+		},
+		"18": {
+			"id": 18,
+			"surface": "often",
+			"left": 98,
+			"lemma": "often",
+			"right": 103,
+			"POS": "RB",
+			"NER": "O",
+			"Speaker": "PER1"
+		},
+		"19": {
+			"id": 19,
+			"surface": "present",
+			"left": 104,
+			"lemma": "present",
+			"right": 111,
+			"POS": "JJ",
+			"NER": "DATE",
+			"Speaker": "PER1"
+		},
+		"20": {
+			"id": 20,
+			"surface": "choices",
+			"left": 112,
+			"lemma": "choice",
+			"right": 119,
+			"POS": "NNS",
+			"NER": "O",
+			"Speaker": "PER1"
+		},
+		"21": {
+			"id": 21,
+			"surface": "between",
+			"left": 120,
+			"lemma": "between",
+			"right": 127,
+			"POS": "IN",
+			"NER": "O",
+			"Speaker": "PER1"
+		},
+		"22": {
+			"id": 22,
+			"surface": "equally",
+			"left": 128,
+			"lemma": "equally",
+			"right": 135,
+			"POS": "RB",
+			"NER": "O",
+			"Speaker": "PER1"
+		},
+		"23": {
+			"id": 23,
+			"surface": "unfavorable",
+			"left": 136,
+			"lemma": "unfavorable",
+			"right": 147,
+			"POS": "JJ",
+			"NER": "O",
+			"Speaker": "PER1"
+		},
+		"24": {
+			"id": 24,
+			"surface": "or",
+			"left": 148,
+			"lemma": "or",
+			"right": 150,
+			"POS": "CC",
+			"NER": "O",
+			"Speaker": "PER1"
+		},
+		"25": {
+			"id": 25,
+			"surface": "disagreeable",
+			"left": 151,
+			"lemma": "disagreeable",
+			"right": 163,
+			"POS": "JJ",
+			"NER": "O",
+			"Speaker": "PER1"
+		},
+		"26": {
+			"id": 26,
+			"surface": "alternatives",
+			"left": 164,
+			"lemma": "alternative",
+			"right": 176,
+			"POS": "NNS",
+			"NER": "O",
+			"Speaker": "PER1"
+		},
+		"27": {
+			"id": 27,
+			"surface": ".",
+			"left": 176,
+			"lemma": ".",
+			"right": 177,
+			"POS": ".",
+			"NER": "O",
+			"Speaker": "PER1"
+		}
+	},
+	[
+		"ROOT",
+		[
+			"S",
+			[
+				"ADVP",
+				[
+					"RB",
+					1
+				],
+				[
+					"RB",
+					2
+				]
+			],
+			[
+				"NP",
+				[
+					"PRP",
+					3
+				]
+			],
+			[
+				"VP",
+				[
+					"VBD",
+					4
+				],
+				[
+					"NP",
+					[
+						"PRP",
+						5
+					]
+				],
+				[
+					"ADVP",
+					[
+						"RB",
+						6
+					],
+					[
+						"VP",
+						[
+							"VBG",
+							7
+						],
+						[
+							"S",
+							[
+								"VP",
+								[
+									"TO",
+									8
+								],
+								[
+									"VP",
+									[
+										"VB",
+										9
+									],
+									[
+										"S",
+										[
+											"NP",
+											[
+												"NNP",
+												10
+											]
+										],
+										[
+											"NP",
+											[
+												"NP",
+												[
+													"NN",
+													11
+												],
+												[
+													"DT",
+													12
+												]
+											],
+											[
+												"PP",
+												[
+													"VBG",
+													13
+												],
+												[
+													"NP",
+													[
+														"`",
+														14
+													],
+													[
+														"NP",
+														[
+															"JJ",
+															15
+														],
+														[
+															"NN",
+															16
+														],
+														[
+															"NNS",
+															17
+														]
+													],
+													[
+														"ADVP",
+														[
+															"RB",
+															18
+														],
+														[
+															"NP",
+															[
+																"JJ",
+																19
+															],
+															[
+																"NNS",
+																20
+															]
+														]
+													],
+													[
+														"PP",
+														[
+															"IN",
+															21
+														],
+														[
+															"NP",
+															[
+																"NP",
+																[
+																	"RB",
+																	22
+																],
+																[
+																	"JJ",
+																	23
+																]
+															],
+															[
+																"CC",
+																24
+															],
+															[
+																"NP",
+																[
+																	"JJ",
+																	25
+																],
+																[
+																	"NNS",
+																	26
+																]
+															]
+														]
+													]
+												]
+											]
+										]
+									]
+								]
+							]
+						]
+					]
+				]
+			],
+			[
+				".",
+				27
+			]
+		]
+	],
+	[
+		{
+			"name": "root",
+			"governor": 0,
+			"dependent": 4
+		},
+		{
+			"name": "advmod",
+			"governor": 2,
+			"dependent": 1
+		},
+		{
+			"name": "advmod",
+			"governor": 4,
+			"dependent": 2
+		},
+		{
+			"name": "nsubj",
+			"governor": 4,
+			"dependent": 3
+		},
+		{
+			"name": "dobj",
+			"governor": 4,
+			"dependent": 5
+		},
+		{
+			"name": "advmod",
+			"governor": 4,
+			"dependent": 6
+		},
+		{
+			"name": "dep",
+			"governor": 6,
+			"dependent": 7
+		},
+		{
+			"name": "mark",
+			"governor": 9,
+			"dependent": 8
+		},
+		{
+			"name": "xcomp",
+			"governor": 7,
+			"dependent": 9
+		},
+		{
+			"name": "nsubj",
+			"governor": 11,
+			"dependent": 10
+		},
+		{
+			"name": "xcomp",
+			"governor": 9,
+			"dependent": 11
+		},
+		{
+			"name": "dep",
+			"governor": 11,
+			"dependent": 12
+		},
+		{
+			"name": "case",
+			"governor": 17,
+			"dependent": 13
+		},
+		{
+			"name": "punct",
+			"governor": 17,
+			"dependent": 14
+		},
+		{
+			"name": "amod",
+			"governor": 17,
+			"dependent": 15
+		},
+		{
+			"name": "compound",
+			"governor": 17,
+			"dependent": 16
+		},
+		{
+			"name": "nmod",
+			"governor": 11,
+			"dependent": 17
+		},
+		{
+			"name": "advmod",
+			"governor": 17,
+			"dependent": 18
+		},
+		{
+			"name": "amod",
+			"governor": 20,
+			"dependent": 19
+		},
+		{
+			"name": "nmod:npmod",
+			"governor": 18,
+			"dependent": 20
+		},
+		{
+			"name": "case",
+			"governor": 23,
+			"dependent": 21
+		},
+		{
+			"name": "advmod",
+			"governor": 23,
+			"dependent": 22
+		},
+		{
+			"name": "nmod",
+			"governor": 17,
+			"dependent": 23
+		},
+		{
+			"name": "cc",
+			"governor": 23,
+			"dependent": 24
+		},
+		{
+			"name": "amod",
+			"governor": 26,
+			"dependent": 25
+		},
+		{
+			"name": "conj",
+			"governor": 23,
+			"dependent": 26
+		},
+		{
+			"name": "punct",
+			"governor": 4,
+			"dependent": 27
+		}
+	]
+]
