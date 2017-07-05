@@ -45,11 +45,11 @@ object Athanor {
     (lexNodes,constTree,deps)
   }
 
-  def process(json:String):String = {
-    athanor.ExecuteFunctionArray(handler,"Apply",List(json).toArray).toList.mkString("|")
+  def process(json:String):List[String] = {
+    athanor.ExecuteFunctionArray(handler,"Apply",List(json).toArray).toList
   }
 
-  def process(parsed:ParsedSentence):String = {
+  def process(parsed:ParsedSentence):List[String] = {
     implicit val formats = Serialization.formats(NoTypeHints)
     val l = write(parsed._1)
     val c = write(parsed._2)

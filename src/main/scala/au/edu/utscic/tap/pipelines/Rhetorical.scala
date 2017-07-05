@@ -15,6 +15,6 @@ object Rhetorical {
 
   val athanor:Flow[String,String,NotUsed] = Flow[String].map {s =>
     val mySent = s
-    Athanor.process(Athanor.demoParsed)
+    Athanor.process(Athanor.demoParsed).mkString(",")
   }
 }
