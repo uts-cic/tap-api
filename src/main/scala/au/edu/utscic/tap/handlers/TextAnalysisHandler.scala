@@ -21,7 +21,7 @@ object TextAnalysisHandler {
       case "cleanpreserve" => Cleaning.Pipeline.lengthPreserve
       case "cleanminimal" => Cleaning.Pipeline.utfMinimal
       case "cleanascii" => Cleaning.Pipeline.asciiOnly
-      //case "syntagmatic" => Syntagmatic.Pipeline.sectionise
+      case "syntagmatic" => Syntagmatic.Pipeline.sectionise
       //case "rhetorical" => Cleaning.Pipeline.fullCleanUtf.via(Rhetorical.Pipeline.sentenceMoves)
       //case "vocab" => TextPipeline(msg.byteStr,Cleaning.pipeline.via(Syntagmatic.pipeline).via(Vocab.pipeline))
       //case "complexity" => getAnalysis[AllComplexity]("complexityAggregator",msg,sender)
