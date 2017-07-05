@@ -17,9 +17,10 @@ object TextAnalysisHandler {
     TapStreamContext.log.debug("Analysing '{}' text: {}", StringUtil.shorten(msg.byteStr.utf8String))
     val pipeline = msg.analysisType match {
       case "visible" => Cleaning.Pipeline.revealInvisible
-      //case "clean" => Cleaning.Pipeline.fullCleanUtf
-      //case "lightclean" => Cleaning.Pipeline.lengthPreserveClean
-      //case "heavyclean" => Cleaning.Pipeline.fullClean127
+      case "clean" => Cleaning.Pipeline.utfSimplify
+      case "cleanpreserve" => Cleaning.Pipeline.lengthPreserve
+      case "cleanminimal" => Cleaning.Pipeline.utfMinimal
+      case "cleanascii" => Cleaning.Pipeline.asciiOnly
       //case "syntagmatic" => Syntagmatic.Pipeline.sectionise
       //case "rhetorical" => Cleaning.Pipeline.fullCleanUtf.via(Rhetorical.Pipeline.sentenceMoves)
       //case "vocab" => TextPipeline(msg.byteStr,Cleaning.pipeline.via(Syntagmatic.pipeline).via(Vocab.pipeline))

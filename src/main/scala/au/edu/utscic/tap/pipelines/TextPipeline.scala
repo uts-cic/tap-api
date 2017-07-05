@@ -17,8 +17,8 @@ import scala.collection.immutable
 //  def run = sourceFrom(iterable).via(flow).toMat(sink)(Keep.right).run()
 //}
 
-case class TextPipeline(inputStr: ByteString, flow: Flow[ByteString,ByteString,NotUsed]) {
+case class TextPipeline(inputStr: ByteString, flow: Flow[ByteString,String,NotUsed]) {
   import TapStreamContext.materializer
   val source = Source.single(inputStr)
-  def run = source via flow runWith(Sink.head[ByteString])
+  def run = source via flow runWith(Sink.head[String])
 }
