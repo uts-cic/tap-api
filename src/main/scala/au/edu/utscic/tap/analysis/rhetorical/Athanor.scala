@@ -2,7 +2,7 @@ package au.edu.utscic.tap.analysis.rhetorical
 
 import au.edu.utscic.tap.data.rhetorical.RhetoricalTypes.{ConstituentTree, Dependencies, LexicalNodes, ParsedSentence}
 import com.typesafe.config.ConfigFactory
-import com.xerox.jatanor._
+import com.xerox.jatanor.JAtanor
 import org.json4s.JsonAST.JValue
 import org.json4s.{DefaultFormats, JArray, NoTypeHints}
 import org.json4s.jackson.JsonMethods.parse
@@ -46,7 +46,7 @@ object Athanor {
   }
 
   def process(json:String):String = {
-    athanor.ExecuteFunction(handler,"Apply",List(json).toArray)
+    athanor.ExecuteFunctionArray(handler,"Apply",List(json).toArray).toList.mkString("|")
   }
 
   def process(parsed:ParsedSentence):String = {

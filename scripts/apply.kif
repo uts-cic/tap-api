@@ -1,4 +1,4 @@
-int  displaytree=1;
+int  displaytree=0;
 loadin(_current+"checklexicon.kif");
 loadin(_current+"features.kif");
 
@@ -167,12 +167,10 @@ function traverse(vector v, treemapi nodes, vector deps,self surf,synode r) {
 //Each item in tree is of the form: [POS,subtree], subtree is either a vector of subnodes or a numerical index to the above token map
 //Each item in dependencies is a map of the form: {"name":...,"governor":idg,"dependent":idd}, where idg and idd are indexes in the token map
 
-
 function Apply(string js) {
-
-    println(_current);
-
+    lock("apply");
     js=js.trim();
+    printlnerr(_threadhandle(),js[:80]+"...");
     vector  v=js;
 
     //the tokens...
@@ -234,10 +232,13 @@ function Apply(string js) {
         
     //we clean our knowledge base
     retractall();
+    unlock("apply");
     
     //we return the result as a JSON map structure
-    return(m.json());
-    //return(_current);
+    svector vres;
+    vres=m.keys();
+    printlnerr("Within athanor:",m,vres);
+    return(vres);
 }
 
 function launch() {
@@ -246,6 +247,11 @@ function launch() {
 }
 
 //launch();
+
+
+
+
+
 
 
 
