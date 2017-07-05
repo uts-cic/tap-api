@@ -15,6 +15,7 @@ import scala.concurrent.duration._
 class TextAnalysisHandlerSpec extends UnitSpec {
   import TapStreamContext._
 
+
 //  "lineSource" should "provide a list of lines" in {
 //    val sourceUnderTest = TextAnalysisHandler.linesSource("This is a test\nanother test\nHere is a longer line")
 //

@@ -15,14 +15,14 @@ object TextAnalysisHandler {
 
   def analyse(msg:Json.ByteStringAnalysis):Future[Json.Results] = {
     TapStreamContext.log.debug("Analysing '{}' text: {}", StringUtil.shorten(msg.byteStr.utf8String))
-    val utf8text = msg.byteStr.utf8String
     val pipeline = msg.analysisType match {
-      case "visible" => TextPipeline(utf8text,Cleaning.Pipeline.revealInvisible)
-      case "clean" => TextPipeline(utf8text,Cleaning.Pipeline.fullCleanUtf)
-      case "lightclean" => TextPipeline(utf8text,Cleaning.Pipeline.lengthPreserveClean)
-      case "heavyclean" => TextPipeline(utf8text,Cleaning.Pipeline.fullClean127)
-      //case "structure" => TextPipeline(msg.byteStr,Cleaning.pipeline.via(Structure.pipeline))
-      //case "vocab" => TextPipeline(msg.byteStr,Cleaning.pipeline.via(Structure.pipeline).via(Vocab.pipeline))
+      case "visible" => Cleaning.Pipeline.revealInvisible
+      //case "clean" => Cleaning.Pipeline.fullCleanUtf
+      //case "lightclean" => Cleaning.Pipeline.lengthPreserveClean
+      //case "heavyclean" => Cleaning.Pipeline.fullClean127
+      //case "syntagmatic" => Syntagmatic.Pipeline.sectionise
+      //case "rhetorical" => Cleaning.Pipeline.fullCleanUtf.via(Rhetorical.Pipeline.sentenceMoves)
+      //case "vocab" => TextPipeline(msg.byteStr,Cleaning.pipeline.via(Syntagmatic.pipeline).via(Vocab.pipeline))
       //case "complexity" => getAnalysis[AllComplexity]("complexityAggregator",msg,sender)
 //      case "expressions" => getAnalysis[AllExpressions]("expressionAnalyser",msg,sender)
 //      case "metrics" => getAnalysis[AllMetrics]("metricsAnalyser",msg,sender)
@@ -36,6 +36,7 @@ object TextAnalysisHandler {
         throw UnknownAnalysisType("Unknown analysis type")
       }
     }
-    Json.formatResults(pipeline.run,"Text Analysis Results")
+    val pipelineResults = TextPipeline(msg.byteStr,pipeline).run
+    Json.formatResults(pipelineResults,"Text Analysis Results")
   }
 }

@@ -79,3 +79,7 @@ src/test/scala-2.12/
 /scalastyle-config.xml
 scalastyle-config.xml
 src/main/scala/au/edu/utscic/tap/data/nlp/coreNlp/
+/lib/jatanor.jar
+lib/
+scripts/
+src/main/scala/au/edu/utscic/tap/Scratch.sc
