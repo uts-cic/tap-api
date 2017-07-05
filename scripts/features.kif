@@ -1,0 +1,30 @@
+mapss validfeatures;
+
+
+function loadfeatures(string filename) {
+    file f(filename);
+    svector text=f.read();
+    f.close();
+
+    int nb=0;
+    svector entree;
+    string a,v;
+    for (string line in text) {
+        line=line.trim();
+        nb++;
+        if (line=="" or line[:2]=="//" or line[0]=='#')
+            continue;
+
+        if (":" not in line) {
+            println("Error in feature:",line, "in", filename,"line:",nb);
+            _exit();
+        }
+        entree=line.split(":");
+        a=entree[0].trim();
+        v=entree[1].trim();
+        if (v=='""' or v=="''")
+            v="";
+        validfeatures[a]=v;
+    }
+}
+

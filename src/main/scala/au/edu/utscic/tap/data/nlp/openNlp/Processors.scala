@@ -1,20 +1,20 @@
 package au.edu.utscic.tap.data.nlp.openNlp
 
-import au.edu.utscic.tap.data.nlp.{Document, Sentence}
+import au.edu.utscic.tap.data.nlp.{NlpDocument, NlpSentence}
 
 
 /**
   * Created by andrew@andrewresearch.net on 19/5/17.
   */
 object Processors {
-  def textToDoc(text:String):Document = {
+  def textToDoc(text:String):NlpDocument = {
     val sentences = Parsers.sentence(text).map(textToSentence(_)) //List(textToSentence("This has"),textToSentence("been converted"))
-    Document(text,sentences)
+    NlpDocument(text,sentences)
   }
-  def textToSentence(text:String):Sentence = {
+  def textToSentence(text:String):NlpSentence = {
     val words = Parsers.token(text)
     val posTags = Parsers.posTag(words)
     val lemmas = List()//Parsers.lemma(words,posTags)
-    Sentence(text,words,lemmas,posTags)
+    NlpSentence(text,words,lemmas,posTags)
   }
 }

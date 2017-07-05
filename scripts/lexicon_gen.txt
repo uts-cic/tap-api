@@ -1,0 +1,135 @@
+Indicator = [c_person=~].
+
+what = [wh=+].
+when = [wh=+].
+where = [wh=+].
+whether = [wh=+].
+which = [wh=+].
+who = [wh=+].
+whom = [wh=+].
+whose = [wh=+].
+why = [wh=+].
+
+
+armistice[Noun:+] = [tempexpr=+, feast_event=+] .
+Christmas[Noun:+] = [tempexpr=+,feast_event=+].
+daily = [tempexpr=+].
+Easter[Noun:+] = [tempexpr=+,feast_event=+].
+frequently = [tempexpr=+].
+Halloween[Noun:+] = [tempexpr=+, feast_event=+].
+minute = [tempexpr=+, period=+].
+monthly = [tempexpr=+].
+nowadays[POS:RB] = [tempexpr=+].
+now = [tempexpr=+].
+often = [period=+,tempexpr=+].
+quarterly = [tempexpr=+].
+repeatedly = [tempexpr=+].
+semester = [tempexpr=+,period=+].
+sometimes = [period=+,tempexpr=+].
+soon = [tempexpr=+].
+Thanksgiving[Noun:+] = [tempexpr=+,feast_event=+].
+today = [tempexpr=+].
+tomorrow = [tempexpr=+].
+tonight = [tempexpr=+].
+weekly = [tempexpr=+].
+Xmas[Noun:+] = [tempexpr=+,feast_event=+].
+yearly = [tempexpr=+] .
+yesterday = [tempexpr=+].
+
+
+afternoon[Noun:+] = [posttime=+,period=+].
+April[Noun:+] = [time=+,period=+].
+Apr[Noun:+] = [time=+,period=+].
+Aug[Noun:+] = [time=+,period=+].
+August[Noun:+] = [time=+,period=+].
+autumn[NAdj:+,Pl:~] = [period=+].
+Autumn[NAdj:+,Pl:~] = [period=+].
+autumn[Noun:+,Pl:~] = [period=+].
+Autumn[Noun:+,Pl:~] = [period=+].
+century[Noun:+] = [period=+].
+current[NAdj:+] = [preperiod=+,c_relat=+].
+day[Noun:+] = [period=+].
+decade[Noun:+] = [period=+].
+December[Noun:+] = [time=+,period=+].
+december = [time=+,period=+].
+Dec[Noun:+] = [time=+,period=+].
+evening[Noun:+] = [posttime=+,period=+].
+Feb[Noun:+] = [time=+,period=+].
+February[Noun:+] = [time=+,period=+].
+february = [time=+,period=+].
+Friday[Noun:+] = [time=+,period=+,day=+].
+FRIDAY[Noun:+] = [time=+,period=+,day=+].
+friday = [time=+,period=+,day=+].
+Frid[Noun:+] = [time=+,period=+,day=+].
+future = [nadj =+,preperiod=+,c_relat =+].
+hour[Noun:+] = [period=+].
+Jan[Noun:+] = [time=+,period=+].
+January[Noun:+] = [time=+,period=+].
+january = [time = +,period=+].
+Jul[Noun:+] = [time=+,period=+].
+July[Noun:+] = [time=+,period=+].
+july = [time=+,period=+].
+June[Noun:+] = [time=+,period=+].
+Jun[Noun:+] = [time=+,period=+].
+last[NAdj:+] = [preperiod=+,c_relat =+].
+March[Noun:+] = [time=+,period=+].
+Mar[Noun:+] = [time=+,period=+].
+May[Noun:+] = [time=+,period=+].
+mid = [preperiod=+,c_absolut=+].
+millenium[Noun:+] = [period=+].
+minute[Noun:+] = [period=+].
+Monday[Noun:+] = [time=+,period=+,day=+].
+MONDAY[Noun:+] = [time=+,period=+,day=+].
+monday = [time=+,period=+,day=+].
+Mon[Noun:+] = [time=+,period=+,day=+].
+month[Noun:+] = [period=+].
+morning[Noun:+] = [posttime=+,period=+].
+next = [nadj =+,preperiod=+,c_relat=+].
+night[Noun:+] = [period=+].
+night[Noun:+] = [posttime=+,period=+].
+November[Noun:+] = [time=+,period=+].
+november = [time=+,period=+].
+Nov[Noun:+] = [time=+,period=+].
+Oct[Noun:+] = [time=+,period=+].
+October[Noun:+] = [time=+,period=+].
+october = [time=+,period=+].
+past = [nadj =+,preperiod=+,c_relat =+].
+Sat[Noun:+] = [time=+,period=+,day=+].
+Saturday[Noun:+] = [time=+,period=+,day=+].
+SATURDAY[Noun:+] = [time=+,period=+,day=+].
+saturday = [time=+,period=+,day=+].
+second[Noun:+] = [period=+] .
+Sep[Noun:+] = [time=+,period=+].
+September[Noun:+] = [time=+,period=+].
+september = [time=+,period=+].
+Sept[Noun:+] = [time=+,period=+].
+spring[NAdj:+,Pl:~] = [period=+].
+Spring[NAdj:+,Pl:~] = [period=+].
+spring[Noun:+,Pl:~] = [period=+].
+Spring[Noun:+,Pl:~] = [period=+].
+summer[NAdj:+,Pl:~] = [period=+].
+Summer[NAdj:+,Pl:~] = [period=+].
+summer[Noun:+,Pl:~] = [period=+].
+Summer[Noun:+,Pl:~] = [period=+].
+Sunday[Noun:+] = [time=+,period=+,day=+].
+SUNDAY[Noun:+] = [time=+,period=+,day=+].
+sunday = [time=+,period=+,day=+].
+Thur[Noun:+] = [time=+,period=+,day=+].
+Thursday[Noun:+] = [time=+,period=+,day=+].
+THURSDAY[Noun:+] = [time=+,period=+,day=+].
+thursday = [time=+,period=+,day=+].
+Tue[Noun:+] = [time=+,period=+,day=+].
+Tuesday[Noun:+] = [time=+,period=+,day=+].
+TUESDAY[Noun:+] = [time=+,period=+,day=+].
+tuesday = [time=+,period=+,day=+].
+Wednesday[Noun:+] = [time=+,period=+,day=+].
+WEDNESDAY[Noun:+] = [time=+,period=+,day=+].
+wednesday = [time=+,period=+,day=+].
+Wed[Noun:+] = [time=+,period=+,day=+].
+week[Noun:+] = [period=+].
+winter[NAdj:+,Pl:~] = [period=+].
+Winter[NAdj:+,Pl:~] = [period=+].
+winter[Noun:+,Pl:~] = [period=+].
+Winter[Noun:+,Pl:~] = [period=+].
+year[Noun:+] = [period=+].
+Yr[Noun:+] = [period=+].

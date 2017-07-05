@@ -1,0 +1,58 @@
+// MENTSCO
+
+If ( syn(#1[mental]) && #1[mentsco="+",mentscopubl="+"] ) ~.
+
+If ( syn(#1[scope]) && #1[mentsco="+",mentscopubl="+"] ) ~.
+
+If ( syn(#1[publ]) && #1[mentscopubl="+"] ) ~.
+
+
+
+// MENTAL added in context
+
+
+//MOD_POST_PASTPART(question,posed)
+//ARGUMENT(posed,article)
+
+//If ( _(#1[transparent], #2[ksw, contr:~]) && setv(#1,["mental","ksw"]) ) ~.
+
+
+//If ( _1(#1[ksw, contr:~], #2[transparent]) && _2(#2[transparent],#3[ksw, contr:~]) && set(#2,"mental") ) ~.
+
+///////////////////
+
+// open new avenues
+//dobj(VBZ[opens/open],NNS[avenues/avenue])
+//amod(NNS[avenues/avenue],JJ[new])
+
+
+//If ( dobj(#1[lemma:"open"],#2[NOUN,scope="+"]) && amod(#2,#3[timefact]) ) ~.
+
+
+// wscope - from add-feature_refl.xip
+
+If ( _1(#1[wscope],#2[scope])  && #1[ok=+] ) ~.
+
+If ( _1(#2[scope],#1[wscope])  && #1[ok=+] ) ~.
+
+//If ( _1(#1[wscope],#2[scope]) || _1(#2[scope],#1[wscope])  && set(#1,"ok") ) ~.
+
+If ( syn(#1[wscope,ok:~]) ) #1[ksw=~,attitude=~,change=~,contr=~,mental=~,new=~,scope=~,timefact=~,mentsco=~,mentscopubl=~].
+
+
+
+// wmentsco - from add-feature_refl.xip
+
+
+//If ( _1(#1[wmentsco],#2[scope]) || _1(#2[scope],#1[wmentsco])  && set(#1,"ok") ) ~.
+
+//If ( syn(#1[wmentsco,ok:~,ksw=~,attitude=~,change=~,contr=~,mental=~,new=~,scope=~,timefact=~,mentsco=~] ) ) ~.
+
+
+If ( _1(#1[wmentsco],#2[scope])  && #1[ok=+] ) ~.
+
+If ( _1(#2[scope],#1[wmentsco])  && #1[ok=+] ) ~.
+ 
+If ( syn(#1[wmentsco,ok:~]) ) #1[ksw=~,attitude=~,change=~,contr=~,mental=~,new=~,scope=~,timefact=~,mentsco=~,mentscopubl=~].
+
+
