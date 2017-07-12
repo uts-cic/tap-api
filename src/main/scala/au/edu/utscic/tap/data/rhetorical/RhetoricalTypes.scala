@@ -7,7 +7,7 @@ import org.json4s.JsonAST.JArray
   */
 
 object RhetoricalTypes {
-  type ConstituentTree = JArray
+  type ConstituentTree = String
   type LexicalNodes = Map[String,Node]
   type Dependencies = List[Dependency]
   type ParsedSentence = (LexicalNodes,ConstituentTree,Dependencies)
