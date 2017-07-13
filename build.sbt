@@ -7,7 +7,7 @@ organization := "au.edu.utscic"
 
 // RUN sbt universal:packageZipTarball to create a tar package for upload to server
 // ensure that JavaAppPackaging is enabled
-enablePlugins(JavaAppPackaging)
+//enablePlugins(JavaAppPackaging)
 
 
 
