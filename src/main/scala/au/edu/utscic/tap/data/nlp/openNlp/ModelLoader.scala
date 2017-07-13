@@ -3,6 +3,7 @@ package au.edu.utscic.tap.data.nlp.openNlp
 import java.io.{FileInputStream, IOException}
 
 import opennlp.tools.lemmatizer.LemmatizerModel
+import opennlp.tools.parser.{ParserChunkerFactory, ParserFactory, ParserModel}
 import opennlp.tools.postag.POSModel
 import opennlp.tools.sentdetect.SentenceModel
 import opennlp.tools.tokenize.TokenizerModel
@@ -17,13 +18,17 @@ object ModelLoader {
         case Models.Token.kind => new TokenizerModel(modelFile(Models.Token.path))
         case Models.PosTag.kind => new POSModel(modelFile(Models.PosTag.path))
         case Models.Lemma.kind => new LemmatizerModel(modelFile(Models.Lemma.path))
+        case Models.ChunkingParser.kind => new ParserModel(modelFile(Models.ChunkingParser.path))
       }
       Some(model.asInstanceOf[T])
     }
     catch {
-      case e: IOException =>
-        e.printStackTrace()
+      case e: IOException => {
+        println("The model loader was unable to find a matching model:")
+        //e.printStackTrace()
         None
+      }
+
     }
   }
 

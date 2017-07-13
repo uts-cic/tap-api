@@ -78,7 +78,6 @@ src/test/scala-2.12/
 /src/main/resources/
 /scalastyle-config.xml
 scalastyle-config.xml
-src/main/scala/au/edu/utscic/tap/data/nlp/coreNlp/
 /lib/
 lib/
 scripts/Description.txt
