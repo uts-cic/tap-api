@@ -1,6 +1,7 @@
 [![https://img.shields.io/badge/license-Apache%202.0-blue.svg](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Build Status](https://travis-ci.org/uts-cic/tap-api.svg?branch=master)](https://travis-ci.org/uts-cic/tap-api)
 
-**IMPORTANT: THIS REPO NOT YET APPROVED FOR OPEN SOURCE**
+**IMPORTANT: OPEN SOURCE APPROVAL PENDING. ALL RIGHTS RESERVED BY UTS. PLEASE OPEN AN ISSUE BEFORE FORKING THIS CODE OR CONTACT [@andrewresearch](http://GitHub.com/andrewresearch)**
 
 # tap-api
 

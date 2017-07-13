@@ -6,7 +6,7 @@ organization := "au.edu.utscic"
 // RUN sbt dependencyUpdates to check dependency version
 
 // RUN sbt universal:packageZipTarball to create a tar package for upload to server
-// ensure that JavaAppPackaging is enabled
+// ensure that JavaAppPackaging is enabled - disable for Travis CI
 //enablePlugins(JavaAppPackaging)
 
 
@@ -18,7 +18,7 @@ val akkaHttpVersion = "10.0.9"
 val akkaHttpJson4sVersion = "1.17.0"
 val json4sVersion = "3.5.2"
 val slickVersion = "3.2.0"
-val slickpgVersion = "0.15.0-RC"
+val slickpgVersion = "0.15.1"
 val slf4jVersion = "1.7.25"
 val logbackVersion = "1.2.3"
 val scalatestVersion = "3.0.3"
@@ -64,3 +64,5 @@ libraryDependencies ++= Seq(
 )
 
 scalacOptions in (Compile, doc) ++= Seq("-doc-root-content", baseDirectory.value+"/src/main/scala/root-doc.md")
+
+resolvers += Resolver.bintrayRepo("nlytx", "nlytx_commons")

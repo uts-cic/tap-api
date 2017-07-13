@@ -78,8 +78,7 @@ src/test/scala-2.12/
 /src/main/resources/
 /scalastyle-config.xml
 scalastyle-config.xml
-/lib/
-lib/
+
 scripts/Description.txt
 scripts/analyse.kif
 scripts/context.ref
