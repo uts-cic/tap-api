@@ -1,9 +1,10 @@
 package au.edu.utscic.tap.handlers
 
-import au.edu.utscic.tap.{TapStreamContext, TapUtil}
+import au.edu.utscic.tap.TapStreamContext
 import au.edu.utscic.tap.message.Exception.UnknownAnalysisType
 import au.edu.utscic.tap.message.Json
 import au.edu.utscic.tap.pipelines._
+import au.edu.utscic.tap.util.StringUtil
 
 import scala.concurrent.Future
 
@@ -13,11 +14,16 @@ import scala.concurrent.Future
 object TextAnalysisHandler {
 
   def analyse(msg:Json.ByteStringAnalysis):Future[Json.Results] = {
-    TapStreamContext.log.debug("Analysing '{}' text: {}",msg.analysisType, TapUtil.shorten(msg.byteStr.utf8String))
+    TapStreamContext.log.debug("Analysing '{}' text: {}", StringUtil.shorten(msg.byteStr.utf8String))
     val pipeline = msg.analysisType match {
-      case "clean" => TextPipeline(msg.byteStr,Clean.pipeline,false)
-      case "structure" => TextPipeline(msg.byteStr,Clean.pipeline.via(Structure.pipeline))
-      case "vocab" => TextPipeline(msg.byteStr,Clean.pipeline.via(Structure.pipeline).via(Vocab.pipeline))
+      case "visible" => Cleaning.Pipeline.revealInvisible
+      case "clean" => Cleaning.Pipeline.utfSimplify
+      case "cleanpreserve" => Cleaning.Pipeline.lengthPreserve
+      case "cleanminimal" => Cleaning.Pipeline.utfMinimal
+      case "cleanascii" => Cleaning.Pipeline.asciiOnly
+      //case "syntagmatic" => Syntagmatic.Pipeline.sectionise
+      case "rhetorical" => Cleaning.Pipeline.utfSimplify.via(Rhetorical.Pipeline.sentenceMoves)
+      //case "vocab" => TextPipeline(msg.byteStr,Cleaning.pipeline.via(Syntagmatic.pipeline).via(Vocab.pipeline))
       //case "complexity" => getAnalysis[AllComplexity]("complexityAggregator",msg,sender)
 //      case "expressions" => getAnalysis[AllExpressions]("expressionAnalyser",msg,sender)
 //      case "metrics" => getAnalysis[AllMetrics]("metricsAnalyser",msg,sender)
@@ -31,6 +37,7 @@ object TextAnalysisHandler {
         throw UnknownAnalysisType("Unknown analysis type")
       }
     }
-    Json.formatResults(pipeline.run,"Text Analysis Results")
+    val pipelineResults = TextPipeline(msg.byteStr,pipeline).run
+    Json.formatResults(pipelineResults,"Text Analysis Results")
   }
 }

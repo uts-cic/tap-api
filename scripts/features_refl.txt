@@ -1,0 +1,37 @@
+analysis : +
+contrast : +
+course : +
+myrefl : +
+noimport : +
+reflection : +
+sentiment : +
+positivesent : +
+negativesent : +
+shift : +
+stance : +
+subject : +
+othersubject : +
+link : +
+temporality : +
+futuretemp : +
+wrefl : +
+intention : +
+shifter : +
+rc : +
+
+Grrefl : +
+rcdep : +
+SubjectAnalysis : +
+SubjectStance : +
+ContrastStance : +
+OtherSubjectAnalysis : +
+ContrastAnalysis : +
+ContrastStance : +
+SubjectContrast : +
+ShiftAnalysis : +
+ShiftStance : +
+StanceAnalysis : +
+LinkAnalysis : +
+LinkStance : +
+SubjectTemporality : +
+

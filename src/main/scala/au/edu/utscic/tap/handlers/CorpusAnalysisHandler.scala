@@ -4,6 +4,7 @@ import akka.NotUsed
 import akka.stream.scaladsl.{Flow, Keep, RunnableGraph, Sink, Source}
 import akka.util.ByteString
 import au.edu.utscic.tap.TapStreamContext
+import au.edu.utscic.tap.data.CorpusTfIdfResults
 import au.edu.utscic.tap.io.Local
 import au.edu.utscic.tap.io.Local.CorpusFile
 import au.edu.utscic.tap.message.Exception.UnknownAnalysisType
@@ -37,7 +38,7 @@ object CorpusAnalysisHandler {
       }
       case "file" => CorpusPipeline(Local.directorySource("/"+msg.corpus),Local.fileFlow).run
       //Local.pipeline.toMat(Sink.seq[Future[String]])(Keep.right) //.via(Local.pipeline).toMat(Sink.seq[String])(Keep.right)
-      //case "topic" => s"Analysing ${msg.corpus} for ${msg.analysisType}" //Pipeline(sourceFrom(msg.byteStr),Clean.pipeline.via(Structure.pipeline))
+      //case "topic" => s"Analysing ${msg.corpus} for ${msg.analysisType}" //Pipeline(sourceFrom(msg.byteStr),Cleaning.pipeline.via(Syntagmatic.pipeline))
       case _ => {
         throw UnknownAnalysisType("Unknown analysis type")
       }
@@ -48,4 +49,3 @@ object CorpusAnalysisHandler {
   }
 }
 
-case class CorpusTfIdfResults(name:String, selectionCount:Int, selectionSize:Double, weighted:Boolean, results:Map[String,Double])

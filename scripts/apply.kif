@@ -1,0 +1,258 @@
+int  displaytree=0;
+loadin(_current+"checklexicon.kif");
+loadin(_current+"features.kif");
+
+
+function set(synode n, string m) {
+    n[m]="+";
+    return(true);
+}
+
+extension synode {
+    
+    function strng() {
+        mapss feats=_synode;
+        string s;
+        s=_synode["POS"];
+        if (_synode.test("surface"))
+            s+=":"+_synode["surface"]+"[";
+        else
+            if (feats.size()>1)
+                s+="[";
+        for (string k in feats) {
+            if (k in ["POS","left","right","surface"])
+                continue;
+            if (displaytree==2 and ("_sc_" in k or "s_" in k))
+                continue;
+                
+            if (feats[k]=="+")
+                s+=k;
+            else
+                s+=k+":"+feats[k];
+            s+=",";
+        }
+        
+        if (s[-1]==",")
+            s[-1]="]";
+        elif ("[" in s)
+            s["["]="";
+        return(s);
+    }
+}
+
+extension dependency {
+    
+    function strng() {
+        string bse=_dependency.name();
+        if (bse=="syn") {
+            bse+="("+_dependency[0].strng();
+            bse+=")";
+            return(bse);
+        }
+        
+        mapss feats=_dependency.features();
+        if (feats!={}) {
+            bse+=feats;
+            bse["{"]="[";
+            bse["}"]="]";
+        }
+        bse+="(";
+        
+        string lemma,pos,wrd;
+        for (int i in <0,_dependency.size(),1>) {
+            wrd=_dependency[i]["surface"];
+            lemma=_dependency[i]["lemma"];
+            pos=_dependency[i]["POS"];
+            if (pos.ispunctuation())
+                pos="PUNCT";
+            if (wrd==lemma)
+                bse+=pos+"["+wrd+"],";
+            else
+                bse+=pos+"["+wrd+"/"+lemma+"],";
+        }
+        bse[-1]=")";
+        return(bse);
+    }
+}
+
+
+//Loading a dependency file...
+//If you need to add a new file, just add a new "loadin"
+//loadin(_current+"dependencies.kif");
+loadin(_current+"new-dependencies.kif");
+loadin(_current+"add-feature_syntax.kif");
+loadin(_current+"add-feature_ana.kif");
+loadin(_current+"add-feature_refl_conc.kif");
+loadin(_current+"dependency_refl.kif");
+
+//Loading a lexique file...
+//Duplicate the loadlexicon line to load more lexicons...
+//loadlexicon(_current+"lexique.txt");
+loadlexicon(_current+"lexicon_gen.txt");
+loadlexicon(_current+"lexicon_ana.txt");
+loadlexicon(_current+"lexicon_refl.txt");
+loadlexicon(_current+"lexicon_sent.txt");
+
+//Loading features
+loadfeatures(_current+"features.txt");
+loadfeatures(_current+"features_gen.txt");
+loadfeatures(_current+"features_syntax.txt");
+loadfeatures(_current+"features_ana.txt");
+loadfeatures(_current+"features_refl.txt");
+
+//This line should be inserted AFTER the feature loading...
+_setvalidfeatures(validfeatures);
+
+//This function loads a JSON structure
+function loadjsonfile(string name)  {
+    file f(name);
+    string txt=f.read();
+    f.close();
+    return(txt);
+}
+
+//This function recursively dispays  the tree from TOP to leaves in an indented way.
+function Displaytree(synode x, int i) {
+    if (x==null)
+        return;
+    string sp;
+    sp.fill(i," ");
+    println(sp,x.strng());
+    Displaytree(x.child(),i+2);
+    Displaytree(x.next(),i);
+}
+
+//This function traverses the vector tree structure and creates a synode for each non terminal nodes (i.e. the phrasal nodes)
+//It also creates a dependency, through the concatenation of "D_" with the phrase node POS.
+//It finaly creates synode tree structure, thanks to the addchild method.
+function traverse(vector v, treemapi nodes, vector deps,self surf,synode r) {
+    for (self e in v[1:]) {
+        if (e.isvector())  {
+            if (e[-1].isnumber()) {
+                //This is a terminal node, the last element of e is the index to the synode.
+                surf+=nodes[e[-1]]["surface"]+" ";
+                r.addchild(nodes[e[-1]]);
+            }
+            else {
+                //this is a phrasal node
+                //we create it and we insert it below the current root node.
+                synode p;
+                p["POS"]=e[0];
+                //we also keep track of it in our nodes map
+                int idx=nodes.size();
+                nodes[idx]=p;
+                r.addchild(p);
+                              
+                string subsurf;
+                //we analyse the subnodes
+                traverse(e,nodes, deps, subsurf,p);
+                p["surface"]=subsurf.trim();
+                
+                //we then create our dependency with a vector
+                //The first element is the dependency name, the second parameter is the associated synode...
+                vector vnode=["D_"+v[0],p];
+                dependency d(vnode);
+                //we store it...
+                deps.push(d);
+                surf+=subsurf;
+            }
+        }
+    }
+}
+
+
+//The input vector is divided into three parts:
+// [ [tokens], [tree], [dependencies] ]
+//Each token in tokens is a map, with at least: a "lemma", a "surface", a "POS" key and a unique numerical "id" key (the id key is used to build an internal token map)
+//Each item in tree is of the form: [POS,subtree], subtree is either a vector of subnodes or a numerical index to the above token map
+//Each item in dependencies is a map of the form: {"name":...,"governor":idg,"dependent":idd}, where idg and idd are indexes in the token map
+
+function Apply(string js) {
+    lock("apply");
+    js=js.trim();
+    printlnerr(_threadhandle(),js[:80]+"...");
+    vector  v=js;
+
+    //the tokens...
+    treemapi nodes;
+    vector deps;
+
+    //First we load our tokens
+    vector vnode;
+    for (self e in v[0]) {
+        synode n(v[0][e]);
+        if (e!=0)
+            addwordfeatures(n);
+        
+        nodes[v[0][e]["id"]]=n;
+        vnode=["syn",n];
+        dependency d(vnode);
+        deps.push(d);
+    }
+    
+    //We absolutly need a ROOT node, if it is not part of the JSON structure, we need to create it...
+    if (nodes.test(0)==false) {
+        map mroot={"POS":"ROOT","id":0};
+        println(mroot);
+        synode n(mroot);
+        nodes[0]=n;
+        vnode=["syn",n];
+        dependency d(vnode);
+        deps.push(d);
+    }
+    
+    //Then the tree
+    string lem;
+    traverse(v[1],nodes,deps,lem,nodes[0]);
+    
+    //Displaytree(nodes[0],0);
+    
+    //Now the dependencies...
+    for (self e in v[2]) {
+        vnode=[e["name"],nodes[e["governor"]],nodes[e["dependent"]]];
+        dependency d(vnode);
+        deps.push(d);
+    }
+
+    //we add the dependencies in our knowledge base
+    for (self dep in deps)
+        assertz(dep);
+        
+    //we call the dependency resolution algorithm
+    _dependencies();
+
+    //the results are stored in the knowledge base, we are
+    //only interested in the D_ROOT dependency
+    vector vx=predicatedump("D_ROOT");
+
+    map m;
+    //We extract the features from D_ROOT, where the results of the analysis are stored.
+    if (vx.size()==1)
+        m=vx[0].features();
+        
+    //we clean our knowledge base
+    retractall();
+    unlock("apply");
+    
+    //we return the result as a JSON map structure
+    svector vres;
+    vres=m.keys();
+    printlnerr("Within athanor:",m,vres);
+    return(vres);
+}
+
+function launch() {
+    string v=loadjsonfile(_current+"sentence.json");
+    println(Apply(v));
+}
+
+//launch();
+
+
+
+
+
+
+
+
+
