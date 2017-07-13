@@ -27,10 +27,3 @@ object RhetoricalTypes {
                          dependent:Int
                        )
 }
-
-
-
-
-
-//(TOP (S (NP-SBJ (DT Some) )(VP (VBP say) (NP (NNP November) ))(. .) ))
-//[“ROOT”, [“S”, [“NP”, [[“Det”,”0”],[“Noun”,”1”]], [“VP”, [“VBD”,”2”]]]]]
