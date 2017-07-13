@@ -35,13 +35,13 @@ class ConstituentTreeParserSpec extends UnitSpec {
     assert(res==s1List)
   }
 
-  "parseOpenNlpTree" should "output valid json string" in {
-    val res = ctp.parseOpenNlpTree(s1)
+  "parseNlpTree" should "output valid json string" in {
+    val res = ctp.parseNlpTree(s1)
     assert(res==s1json)
   }
 
-  "parseOpenNlpTree" should "change TOP to ROOT" in {
-    val res = ctp.parseOpenNlpTree(s0)
+  "parseNlpTree" should "change TOP to ROOT" in {
+    val res = ctp.parseNlpTree(s0)
     assert(res==s0json)
   }
 

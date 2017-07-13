@@ -14,8 +14,8 @@ enablePlugins(JavaAppPackaging)
 //Scala library versions
 val akkaVersion = "2.5.3"
 val akkaStreamVersion = "2.5.3"
-val akkaHttpVersion = "10.0.8"
-val akkaHttpJson4sVersion = "1.16.1"
+val akkaHttpVersion = "10.0.9"
+val akkaHttpJson4sVersion = "1.17.0"
 val json4sVersion = "3.5.2"
 val slickVersion = "3.2.0"
 val slickpgVersion = "0.15.0-RC"
@@ -25,7 +25,8 @@ val scalatestVersion = "3.0.3"
 val nlytxCommonsVersion = "0.1.1"
 //Java library versions
 val postgresDriverVersion = "42.1.1"
-val openNlpVersion = "1.8.0"
+val openNlpVersion = "1.8.1"
+val nlp4jVersion = "1.1.3"
 
 //Akka
 libraryDependencies ++= Seq(
@@ -37,9 +38,11 @@ libraryDependencies ++= Seq(
 )
 //NLP dependencies
 libraryDependencies ++= Seq(
-  "org.apache.opennlp" % "opennlp-tools" % openNlpVersion
-
+  "org.apache.opennlp" % "opennlp-tools" % openNlpVersion,
+  "edu.emory.mathcs.nlp" % "nlp4j-api" % nlp4jVersion,
+  "edu.emory.mathcs.nlp" % "nlp4j-english" % nlp4jVersion
 )
+
 //Slick
 libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick" % slickVersion,

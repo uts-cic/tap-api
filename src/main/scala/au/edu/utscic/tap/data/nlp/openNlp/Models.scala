@@ -1,6 +1,7 @@
 package au.edu.utscic.tap.data.nlp.openNlp
 
 import opennlp.tools.lemmatizer.LemmatizerModel
+import opennlp.tools.parser.ParserModel
 import opennlp.tools.postag.POSModel
 import opennlp.tools.sentdetect.SentenceModel
 import opennlp.tools.tokenize.TokenizerModel
@@ -27,7 +28,13 @@ object Models {
   }
 
   object Lemma {
-    val path = fullPath("en-lemma-perceptron-conll09.bin")
+    //val path = fullPath("en-lemma-perceptron-conll09.bin")
+    val path = fullPath("en-lemmatizer.dic.txt")
     val kind = classOf[LemmatizerModel]
+  }
+
+  object ChunkingParser {
+    val path = fullPath("en-parser-chunking.bin")
+    val kind = classOf[ParserModel]
   }
 }

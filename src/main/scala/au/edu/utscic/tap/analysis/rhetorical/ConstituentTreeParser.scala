@@ -11,7 +11,7 @@ import org.json4s.jackson.JsonMethods.parse
   */
 object ConstituentTreeParser {
 
-  def parseOpenNlpTree(s: String):String = {
+  def parseNlpTree(s: String):String = {
     val l = parseToList(s)
     val nl = if(l.head=="TOP") "ROOT" +: l.tail else l //Change TOP to ROOT for athanor
     listToJsonString(nl)
