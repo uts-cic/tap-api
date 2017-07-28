@@ -14,7 +14,6 @@ object Rhetorical {
   }
 
   val athanor:Flow[String,String,NotUsed] = Flow[String].map {s =>
-    val parsedSent = SentenceParser.parseSentence(s)
-    Athanor.process(parsedSent).mkString(",")
+   "Not Implemented"
   }
 }
