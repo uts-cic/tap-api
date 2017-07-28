@@ -1,6 +1,6 @@
 name := "tap-api"
 version := "2.0.2"
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.3"
 organization := "au.edu.utscic"
 
 // RUN sbt dependencyUpdates to check dependency version
@@ -17,14 +17,14 @@ val akkaStreamVersion = "2.5.3"
 val akkaHttpVersion = "10.0.9"
 val akkaHttpJson4sVersion = "1.17.0"
 val json4sVersion = "3.5.2"
-val slickVersion = "3.2.0"
-val slickpgVersion = "0.15.1"
+val slickVersion = "3.2.1"
+val slickpgVersion = "0.15.2"
 val slf4jVersion = "1.7.25"
 val logbackVersion = "1.2.3"
 val scalatestVersion = "3.0.3"
 val nlytxCommonsVersion = "0.1.1"
 //Java library versions
-val postgresDriverVersion = "42.1.1"
+val postgresDriverVersion = "42.1.3"
 val openNlpVersion = "1.8.1"
 val nlp4jVersion = "1.1.3"
 
@@ -41,6 +41,7 @@ libraryDependencies ++= Seq(
   "org.apache.opennlp" % "opennlp-tools" % openNlpVersion,
   "edu.emory.mathcs.nlp" % "nlp4j-api" % nlp4jVersion,
   "edu.emory.mathcs.nlp" % "nlp4j-english" % nlp4jVersion
+  //"edu.emory.clir" % "clearnlp" % "3.2.0"
 )
 
 //Slick
